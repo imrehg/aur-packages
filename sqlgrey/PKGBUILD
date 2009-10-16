@@ -10,7 +10,7 @@ depends=('perl' 'perl-net-server' 'perl-io-multiplex' 'perl-dbi' 'perl-date-calc
 optdepends=('perl-dbd-pg: for using postgresql as backend database' 'perl-dbd-mysql: for using mysql as backend database')
 backup=('etc/sqlgrey/sqlgrey.conf' 'etc/sqlgrey/clients_ip_whitelist.local' 'etc/sqlgrey/clients_fqdn_whitelist.local')
 install=$pkgname.install
-source=(http://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.bz2 $pkgname.rc)
+source=("http://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.bz2" "rc.$pkgname")
 md5sums=('513ddb38e5a9760773d8e1a2b27e31a1'
          '028c1b536ef89fa2eb6cbc7fb4708395')
 
