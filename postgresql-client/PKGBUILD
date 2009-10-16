@@ -1,0 +1,57 @@
+# Contributor: Phillip Smith <fukawi2@NO-SPAM.gmail.com>
+
+pkgname=postgresql-client
+pkgver=8.4.1
+pkgrel=2
+pkgdesc="Client only install of a sophisticated object-relational DBMS"
+arch=(i686 x86_64)
+license=('BSD')
+#backup=('etc/conf.d/postgresql' 'etc/pam.d/postgresql')
+url="http://www.postgresql.org/"
+depends=("postgresql-libs>=$pkgver" "libxml2" 'readline>=6.0')
+options=('!makeflags')
+source=("ftp://ftp.postgresql.org/pub/source/v${pkgver}/postgresql-${pkgver}.tar.bz2" "build.patch")
+md5sums=('f2015af17bacbbfe140daf0d1067f9c9'
+         '4d74f4227dc5e12bf95b3490758d86c9')
+
+build() {
+  cd $srcdir/postgresql-$pkgver || return 1
+
+  # patch to remove regress/test make target (won't build with it present)
+  patch -Np1 -i ../build.patch || return 1
+
+  # configure
+  ./configure --prefix=/usr \
+    --mandir=/usr/share/man \
+    --with-docdir=/usr/share/doc \
+    --with-openssl \
+    --datadir=/usr/share/postgresql \
+    --with-pam \
+    --with-libxml || return 1
+  
+  sed -i -e '/interfaces/d' src/Makefile || return 1
+  
+  # build
+  make || return 1
+}
+
+package() {
+  cd $srcdir/postgresql-$pkgver || return 1
+
+  # install
+  make -C src/bin DESTDIR=$pkgdir install || return 1
+  make -C src/include DESTDIR=$pkgdir install || return 1
+  make -C src/interfaces DESTDIR=$pkgdir install || return 1
+  #make -C doc DESTDIR=$pkgdir install || return 1
+  
+  # clean up unneeded installed items
+  rm -rf $pkgdir/usr/include/postgresql/internal || return 1
+  rm -rf $pkgdir/usr/include/libpq || return 1
+  # the below line is expected to produce an error; fix this one day
+  rm -f $pkgdir/usr/include/*
+  rm -f $pkgdir/usr/bin/pg_config || return 1
+  
+  # install license
+  install -D -m644 COPYRIGHT $pkgdir/usr/share/licenses/$pkgname/LICENSE || return 1
+}
+# vim:set ts=2 sw=2 et:

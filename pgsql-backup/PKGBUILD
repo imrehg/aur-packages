@@ -1,0 +1,26 @@
+# Contributor: Phillip Smith <fukawi2@NO-SPAM.gmail.com>
+pkgname=pgsql-backup
+pkgver=0.9.6
+pkgrel=1
+pkgdesc="Automatic rolling backups for PostgreSQL"
+arch=(any)
+url="http://fukawi2.nl/index.php?page=code-pgsql-backup"
+license=('GPL')
+depends=(tar coreutils gzip)
+backup=('etc/pgsql-backup/options.conf')
+optdepends=(bzip2)
+install=$pkgname.install
+source=(pgsql-backup options.conf)
+md5sums=('a39673bc61242a9ee35a784b41491471'
+         'a5c19b60146da534a33c6f6b8706aa60')
+
+build() {
+  msg "Nothing to compile for $pkgname"
+}
+
+package() {
+	install -Dm755 $pkgname $pkgdir/usr/bin/$pkgname || return 1
+	install -Dm600 options.conf $pkgdir/etc/$pkgname/options.conf || return 1
+}
+
+# vim:set ts=2 sw=2 et:

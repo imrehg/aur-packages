@@ -1,0 +1,105 @@
+# Maintainer: Phillip Smith <fukawi2@NO-SPAM.gmail.com>
+# Contributor: (asper, noob
+
+pkgname=vuurmuur
+pkgver=0.7
+pkgrel=1
+pkgdesc="a powerful firewall manager built on top of iptables on Linux"
+arch=('i686' 'x86_64')
+url="http://www.vuurmuur.org"
+license=('GPL')
+depends=('libtool' 'ncurses' 'perl' 'gettext' 'kernel-headers' 'iproute2')
+source=("http://downloads.sourceforge.net/$pkgname/Vuurmuur-$pkgver.tar.gz" "rc.$pkgname")
+md5sums=('bad91aafcbea5e3a434440f88d722778'
+         '642f76de44f9f8af6f2d344855bf8040')
+
+build() {
+  cd $srcdir/Vuurmuur-$pkgver || return 1
+  
+  # Unpack the sauce
+  for SAUCE in "$pkgname-$pkgver.tar.gz" "${pkgname}_conf-$pkgver.tar.gz" "lib${pkgname}-$pkgver.tar.gz" ; do
+    tar xzf $SAUCE || return 1
+  done
+  
+  # make vuurmuurlib
+  cd $srcdir/Vuurmuur-$pkgver/lib${pkgname}-$pkgver || return 1
+  ./configure --prefix=/usr --sysconfdir=/etc || return 1
+  make || return 1
+  
+  # make vuurmuur
+  cd $srcdir/Vuurmuur-$pkgver/${pkgname}-$pkgver || return 1
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --with-libvuurmuur-includes="$srcdir/Vuurmuur-$pkgver/lib${pkgname}-$pkgver/src" \
+    --with-libvuurmuur-librares="$srcdir/Vuurmuur-$pkgver/lib${pkgname}-$pkgver/src" \
+    LDFLAGS="-L$srcdir/Vuurmuur-$pkgver/lib${pkgname}-$pkgver/src \
+    -L$srcdir/Vuurmuur-$pkgver/lib${pkgname}-$pkgver/src/.libs" || return 1
+  make || return 1
+  
+  # make vuurmuur_conf
+  cd $srcdir/Vuurmuur-$pkgver/${pkgname}_conf-$pkgver || return 1
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --with-libvuurmuur-includes="$srcdir/Vuurmuur-$pkgver/lib${pkgname}-$pkgver/src" \
+    --with-libvuurmuur-librares="$srcdir/Vuurmuur-$pkgver/lib${pkgname}-$pkgver/src" \
+    --with-libncurses-libraries=/usr/lib \
+    --with-libncurses-includes=/usr/include \
+    LDFLAGS="-L$srcdir/Vuurmuur-$pkgver/lib${pkgname}-$pkgver/src \
+    -L$srcdir/Vuurmuur-$pkgver/lib${pkgname}-$pkgver/src/.libs" || return 1
+  # patch for ncurses headers
+  #sed -i -e "s/#ifdef HAVE_NC_WIDE_HEADERS/#ifndef HAVE_NC_WIDE_HEADERS/" ./src/main.h || return 1
+  make || return 1
+}
+
+package() {
+  # install vuurmuurlib
+  cd $srcdir/Vuurmuur-$pkgver/lib${pkgname}-$pkgver || return 1
+  make DESTDIR="$pkgdir" install || return 1
+  
+  # install vuurmuur
+  cd $srcdir/Vuurmuur-$pkgver/${pkgname}-$pkgver || return 1
+  make DESTDIR=$pkgdir install || return 1
+  
+  # install vuurmuur_conf
+  cd $srcdir/Vuurmuur-$pkgver/${pkgname}_conf-$pkgver || return 1
+  make DESTDIR="$pkgdir" install || return 1
+  
+  # install sysconf files
+  mkdir -p -m0700 $pkgdir/etc/${pkgname}/{,textdir,plugins} || return 1
+  mkdir -p -m0700 $pkgdir/etc/${pkgname}/textdir/{interfaces,services,rules} || return 1
+  touch $pkgdir/etc/${pkgname}/textdir/rules/rules.conf || return 1
+  touch $pkgdir/etc/${pkgname}/textdir/rules/blocklist.conf || return 1
+  touch $pkgdir/etc/${pkgname}/plugins/textdir.conf || return 1
+  echo "LOCATION=\"/etc/${pkgname}/textdir\"" > $pkgdir/etc/${pkgname}/plugins/textdir.conf || return 1
+  mv $pkgdir/usr/share/${pkgname}/services/* $pkgdir/etc/${pkgname}/textdir/services/ || return 1
+  cp -r "$startdir/src/Vuurmuur-$pkgver/zones" $pkgdir/etc/${pkgname}/textdir/ || return 1
+  
+  # install cfg file
+  cp $pkgdir/usr/share/${pkgname}/config/config.conf.sample $pkgdir/etc/${pkgname}/config.conf || return 1
+  
+  # make some mods to the config file to suit Arch
+  sed -i \
+    -e 's|/sbin/iptables|/usr/sbin/iptables|' \
+    -e 's|/var/log/messages|/var/log/iptables.log|' \
+    -e 's|LOGLEVEL="info"|LOGLEVEL="debug"|' \
+    -e 's|CONNTRACK=""|CONNTRACK="/usr/bin/conntrack"|' \
+    -e 's|TC=""|TC="/usr/bin/tc"|' \
+    $pkgdir/etc/${pkgname}/config.conf || return 1
+  
+  # create log directory 
+  mkdir -p -m0700 $pkgdir/var/log/${pkgname} || return 1
+  
+  # install rc script
+  install -Dm755 $srcdir/rc.$pkgname $pkgdir/etc/rc.d/$pkgname || return 1
+  rm -f $pkgdir/usr/share/$pkgname/scripts/rc.$pkgname || return 1
+  rm -f $pkgdir/usr/share/$pkgname/scripts/$pkgname-initd* || return 1
+   
+  # fix ownership and permissions on everything. Note the upper-case X only
+  # sets +x on directories or files that already have +x set
+  chown -R root:root $pkgdir/etc/$pkgname || return 1
+  chmod -R o=rwX,go= $pkgdir/etc/$pkgname || return 1
+}
+
+# vim:set ts=2 sw=2 et:

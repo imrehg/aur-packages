@@ -1,0 +1,23 @@
+# Contributor: Phillip Smith <fukawi2@NO-SPAM.gmail.com>
+
+pkgname=sshfp
+pkgver=1.1.3
+pkgrel=4
+pkgdesc="Generates DNS SSHFP-type records from SSH public keys from public keys from a known_hosts file or from scanning the host's sshd daemon."
+arch=(i686 x86_64)
+license=('GPL')
+depends=('python-dnspython')
+url="http://www.xelerance.com/software/sshfp/"
+source=(http://www.xelerance.com/software/$pkgname/$pkgname-$pkgver.tar.gz)
+md5sums=('c354b2f7d7c910fd75e3f16f05d8007b')
+
+build() {
+  msg "Nothing to compile for $pkgname"
+}
+
+package() {
+  cd $srcdir/$pkgname-$pkgver
+  make DESTDIR=$pkgdir install
+}
+
+# vim:set ts=2 sw=2 et:

@@ -1,0 +1,32 @@
+# Maintainer: Phillip Smith <fukawi2@NO-SPAM.gmail.com>
+# Contributor: Christian Berendt <christian@thorlin.de>
+
+pkgname=cfengine
+pkgver=3.0.2
+pkgrel=1
+pkgdesc="automated suite of programs for configuring and maintaining Unix-like computers."
+url="http://www.cfengine.org"
+license=('GPL3')
+arch=('i686' 'x86_64')
+depends=('openssl' 'db' 'flex' 'bison' 'pcre')
+source=("http://www.cfengine.org/tarballs/${pkgname}-${pkgver}.tar.gz")
+md5sums=('ba23adb8c54c2da13953d8b24f303430')
+
+build() {
+	cd ${srcdir}/${pkgname}-${pkgver} || return 1
+
+	./configure \
+    --prefix=/usr \
+    --with-sql \
+    --with-workdir=/srv/cfengine || return 1
+
+	make || return 1
+}
+
+package() {
+	cd ${srcdir}/${pkgname}-${pkgver} || return 1
+
+	make DESTDIR=$pkgdir install || return 1
+}
+
+# vim:set ts=2 sw=2 et:
