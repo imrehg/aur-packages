@@ -1,61 +1,69 @@
 # Maintainer: Phillip Smith <fukawi2@NO-SPAM.gmail.com>
 # Maintainer: Matias Korhonen <webadmin@draco-vulgaris.net>
 # Contributor: Dylon Edwards <deltaecho@archlinux.us>
-pkgname=backintime
+pkgbase=backintime
+pkgname=('backintime-common' 'backintime-gnome' 'backintime-kde4')
 pkgver=0.9.26
-pkgrel=2
-pkgdesc="Back In Time is a simple backup system for Linux inspired from the Flyback project and TimeVault."
+pkgrel=3
+pkgdesc="a simple backup system for Linux inspired from the Flyback project and TimeVault"
 arch=('i686' 'x86_64')
 url="http://backintime.le-web.org/"
 license=('GPL')
 depends=( 'python' 'rsync' 'dcron' )
-source=(http://backintime.le-web.org/download/${pkgname}/${pkgname}-${pkgver}_src.tar.gz)
+replaces=('backintime')
+conflicts=('backintime')
+source=("http://backintime.le-web.org/download/${pkgbase}/${pkgbase}-${pkgver}_src.tar.gz")
 md5sums=('8a53d1f757ccfa439754f4a8b9cb3e49')
-
-# Build a custom array of depends based on what DE is installed
-if [ `which gnome-session 2> /dev/null` ]; then
-	depends=( ${depends[@]} 'pygtk' 'python-notify' 'gnome-python' 'meld' )
-	_type=( ${_type[@]} gnome )
-fi
-
-if [ `which kdeinit4 2> /dev/null` ]; then
-	depends=( ${depends[@]} 'xorg-utils' )
-	_type=( ${_type[@]} kde4 )
-fi
-
-if [ ${#_type[@]} == 0 ]; then
-	return 1
-fi
 
 build() {
   msg "Compiling COMMON components..."
-  cd ${srcdir}/${pkgname}-${pkgver}/common
+  cd ${srcdir}/${pkgbase}-${pkgver}/common
 	
 	./configure || return 1
 	
 	make || return 1
 
-	for t in ${_type[@]}; do
-		msg "Building the "${t}" UI"
-		cd ${srcdir}/${pkgname}-${pkgver}/${t}
-		
+  if [ `which gnome-session 2> /dev/null` ] ; then
+		msg "Building the Gnome GUI"
+		cd ${srcdir}/${pkgbase}-${pkgver}/gnome
 		./configure || return 1
-		
 		make || return 1
-	done
+  fi
+  
+  if [ `which kdeinit4 2> /dev/null` ] ; then
+		msg "Building the KDE4 GUI"
+		cd ${srcdir}/${pkgbase}-${pkgver}/kde4
+		./configure || return 1
+		make || return 1
+  fi
 }
 
-package() {
+package_backintime-common() {
 	msg "Packaging COMMON components..."
-  cd ${srcdir}/${pkgname}-${pkgver}/common
+  cd ${srcdir}/${pkgbase}-${pkgver}/common
 	make DESTDIR=${pkgdir} install
-  
-	for t in ${_type[@]}; do
-		msg "Packaging the "${t}" UI"
-		cd ${srcdir}/${pkgname}-${pkgver}/${t}
-		
+}
+
+package_backintime-gnome() {
+  if [ `which gnome-session 2> /dev/null` ] ; then
+	  msg "Packaging the Gnome GUI"
+    depends=( ${depends[@]} 'backintime-common' 'pygtk' 'python-notify' 'gnome-python' 'meld' )
+	  cd ${srcdir}/${pkgbase}-${pkgver}/gnome
     make DESTDIR=${pkgdir} install || return 1
-	done
+  else
+    msg "Gnome not found; Not packaging for Gnome"
+  fi
+}
+
+package_backintime-kde4() {
+  if [ `which kdeinit4 2> /dev/null` ] ; then
+	  msg "Packaging the KDE4 GUI"
+    depends=( ${depends[@]} 'backintime-common' 'xorg-utils' 'pyqt' 'kdebindings-python')
+    cd ${srcdir}/${pkgbase}-${pkgver}/kde4
+    make DESTDIR=${pkgdir} install || return 1
+  else
+    msg "KDE4 not found; Not packaging for KDE4"
+  fi
 }
 
 # vim:set ts=2 sw=2 et:
