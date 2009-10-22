@@ -5,7 +5,9 @@ pkgbase=backintime
 pkgname=('backintime-common' 'backintime-gnome' 'backintime-kde4')
 pkgver=0.9.26
 pkgrel=3
+<<<<<<< HEAD
 pkgdesc="a simple backup system for Linux inspired from the Flyback project and TimeVault"
+>>>>>>> fix_backintime
 arch=('i686' 'x86_64')
 url="http://backintime.le-web.org/"
 license=('GPL')
@@ -15,6 +17,24 @@ conflicts=('backintime')
 source=("http://backintime.le-web.org/download/${pkgbase}/${pkgbase}-${pkgver}_src.tar.gz")
 md5sums=('8a53d1f757ccfa439754f4a8b9cb3e49')
 
+<<<<<<< HEAD
+=======
+# Build a custom array of depends based on what DE is installed
+if [ `which gnome-session 2> /dev/null` ]; then
+	depends=( ${depends[@]} 'pygtk' 'python-notify' 'gnome-python' 'meld' )
+	_type=( ${_type[@]} gnome )
+fi
+
+if [ `which kdeinit4 2> /dev/null` ]; then
+	depends=( ${depends[@]} 'xorg-utils' 'pyqt' 'kdebindings-python')
+	_type=( ${_type[@]} kde4 )
+fi
+
+if [ ${#_type[@]} == 0 ]; then
+	return 1
+fi
+
+>>>>>>> fix_backintime
 build() {
   msg "Compiling COMMON components..."
   cd ${srcdir}/${pkgbase}-${pkgver}/common
@@ -35,34 +55,6 @@ build() {
 		cd ${srcdir}/${pkgbase}-${pkgver}/kde4
 		./configure || return 1
 		make || return 1
-  fi
-}
-
-package_backintime-common() {
-	msg "Packaging COMMON components..."
-  cd ${srcdir}/${pkgbase}-${pkgver}/common
-	make DESTDIR=${pkgdir} install
-}
-
-package_backintime-gnome() {
-  if [ `which gnome-session 2> /dev/null` ] ; then
-	  msg "Packaging the Gnome GUI"
-    depends=( ${depends[@]} 'backintime-common' 'pygtk' 'python-notify' 'gnome-python' 'meld' )
-	  cd ${srcdir}/${pkgbase}-${pkgver}/gnome
-    make DESTDIR=${pkgdir} install || return 1
-  else
-    msg "Gnome not found; Not packaging for Gnome"
-  fi
-}
-
-package_backintime-kde4() {
-  if [ `which kdeinit4 2> /dev/null` ] ; then
-	  msg "Packaging the KDE4 GUI"
-    depends=( ${depends[@]} 'backintime-common' 'xorg-utils' 'pyqt' 'kdebindings-python')
-    cd ${srcdir}/${pkgbase}-${pkgver}/kde4
-    make DESTDIR=${pkgdir} install || return 1
-  else
-    msg "KDE4 not found; Not packaging for KDE4"
   fi
 }
 
