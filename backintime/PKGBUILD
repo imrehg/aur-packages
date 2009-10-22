@@ -3,7 +3,7 @@
 # Contributor: Dylon Edwards <deltaecho@archlinux.us>
 pkgname=backintime
 pkgver=0.9.26
-pkgrel=2
+pkgrel=3
 pkgdesc="Back In Time is a simple backup system for Linux inspired from the Flyback project and TimeVault."
 arch=('i686' 'x86_64')
 url="http://backintime.le-web.org/"
@@ -19,7 +19,7 @@ if [ `which gnome-session 2> /dev/null` ]; then
 fi
 
 if [ `which kdeinit4 2> /dev/null` ]; then
-	depends=( ${depends[@]} 'xorg-utils' )
+	depends=( ${depends[@]} 'xorg-utils' 'pyqt' 'kdebindings-python')
 	_type=( ${_type[@]} kde4 )
 fi
 
