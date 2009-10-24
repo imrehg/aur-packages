@@ -3,7 +3,7 @@
 # Contributor: Dylon Edwards <deltaecho@archlinux.us>
 pkgname=backintime
 pkgver=0.9.26
-pkgrel=2
+pkgrel=4
 pkgdesc="Back In Time is a simple backup system for Linux inspired from the Flyback project and TimeVault."
 arch=('i686' 'x86_64')
 url="http://backintime.le-web.org/"
@@ -14,48 +14,48 @@ md5sums=('8a53d1f757ccfa439754f4a8b9cb3e49')
 
 # Build a custom array of depends based on what DE is installed
 if [ `which gnome-session 2> /dev/null` ]; then
-	depends=( ${depends[@]} 'pygtk' 'python-notify' 'gnome-python' 'meld' )
-	_type=( ${_type[@]} gnome )
+  depends=( ${depends[@]} 'pygtk' 'python-notify' 'gnome-python' 'meld' )
+  _type=( ${_type[@]} gnome )
 fi
 
 if [ `which kdeinit4 2> /dev/null` ]; then
-	depends=( ${depends[@]} 'xorg-utils' )
-	_type=( ${_type[@]} kde4 )
+  depends=( ${depends[@]} 'xorg-utils' 'pyqt' 'kdebindings-python')
+  _type=( ${_type[@]} kde4 )
 fi
 
 if [ ${#_type[@]} == 0 ]; then
-	return 1
+  return 1
 fi
 
 build() {
   msg "Compiling COMMON components..."
   cd ${srcdir}/${pkgname}-${pkgver}/common
-	
-	./configure || return 1
-	
-	make || return 1
-
-	for t in ${_type[@]}; do
-		msg "Building the "${t}" UI"
-		cd ${srcdir}/${pkgname}-${pkgver}/${t}
-		
-		./configure || return 1
-		
-		make || return 1
-	done
+  
+  ./configure || return 1
+  
+  make || return 1
+  
+  for t in ${_type[@]}; do
+    msg "Building the "${t}" UI"
+    cd ${srcdir}/${pkgname}-${pkgver}/${t}
+    
+    ./configure || return 1
+    
+    make || return 1
+  done
 }
 
 package() {
-	msg "Packaging COMMON components..."
+  msg "Packaging COMMON components..."
   cd ${srcdir}/${pkgname}-${pkgver}/common
-	make DESTDIR=${pkgdir} install
+  make DESTDIR=${pkgdir} install
   
-	for t in ${_type[@]}; do
-		msg "Packaging the "${t}" UI"
-		cd ${srcdir}/${pkgname}-${pkgver}/${t}
-		
+  for t in ${_type[@]}; do
+    msg "Packaging the "${t}" UI"
+    cd ${srcdir}/${pkgname}-${pkgver}/${t}
+    
     make DESTDIR=${pkgdir} install || return 1
-	done
+  done
 }
 
 # vim:set ts=2 sw=2 et:
