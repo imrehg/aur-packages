@@ -5,6 +5,8 @@ post_install() {
   if [ -z "`getent passwd nrpe`" ]; then
     useradd -u 31 -g nrpe -c "Nagios NRPE" -d /dev/null -s /bin/false nrpe
   fi
+  
+  echo "nrpe    5666/tcp     # nagios nrpe service" >> /etc/services 
 }
 
 post_upgrade() {

@@ -44,7 +44,10 @@ package() {
   
   # install xinetd template
   install -Dm644 sample-config/nrpe.xinetd $pkgdir/etc/xinetd.d/nrpe || return 1
-  sed -i -e 's|disable         = no|disable         = yes|g' $pkgdir/etc/xinetd.d/nrpe || return 1
+  sed \
+    -e 's|disable         = no|disable         = yes|g' \
+    -e 's|/usr/bin/nrpe|/usr/sbin/nrpe|g' \
+    -i $pkgdir/etc/xinetd.d/nrpe || return 1
   
   # install rc init script
   install -D -m755 $srcdir/rc.nrpe $pkgdir/etc/rc.d/nrpe || return 1
