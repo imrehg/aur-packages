@@ -3,13 +3,26 @@
 
 pkgname=vuurmuur
 pkgver=0.7
-pkgrel=1
+pkgrel=2
 pkgdesc="a powerful firewall manager built on top of iptables on Linux"
 arch=('i686' 'x86_64')
 url="http://www.vuurmuur.org"
 license=('GPL')
 depends=('libtool' 'ncurses' 'perl' 'gettext' 'kernel-headers' 'iproute2')
-source=("http://downloads.sourceforge.net/$pkgname/Vuurmuur-$pkgver.tar.gz" "rc.$pkgname")
+backup=('etc/vuurmuur/config.conf'
+        'etc/vuurmuur/textdir/rules/rules.conf'
+        'etc/vuurmuur/textdir/rules/blocklist.conf'
+        'etc/vuurmuur/plugins/textdir.conf'
+        'etc/vuurmuur/textdir/zones/vpn/zone.config'
+        'etc/vuurmuur/textdir/zones/lan/zone.config'
+        'etc/vuurmuur/textdir/zones/inet/zone.config'
+        'etc/vuurmuur/textdir/zones/inet/networks/internet/network.config'
+        'etc/vuurmuur/textdir/zones/dmz/zone.config'
+        'etc/vuurmuur/textdir/rules/blocklist.conf'
+        'etc/vuurmuur/textdir/rules/rules.conf'
+        'etc/vuurmuur/plugins/textdir.conf')
+source=("http://downloads.sourceforge.net/$pkgname/Vuurmuur-$pkgver.tar.gz"
+        "rc.$pkgname")
 md5sums=('bad91aafcbea5e3a434440f88d722778'
          '642f76de44f9f8af6f2d344855bf8040')
 
