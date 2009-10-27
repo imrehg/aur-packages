@@ -1,0 +1,41 @@
+# Maintainer: Phillip Smith <fukawi2@NOSPAM.gmail.com>
+# Contributor: Adam <adam@russ.co.il>
+
+pkgname=gnome-web-photo
+pkgver=0.9
+pkgrel=1
+pkgdesc="a tool to generate full-size image files and thumbnails from HTML files and web pages"
+url="http://www.gnome.org"
+license="GPL"
+arch=('i686' 'x86_64')
+depends=('dbus-core' 'dbus-glib' 'expat' 'gconf' 'glib2' 'gtk2' 'orbit2' 'pango' 'pixman' 'sqlite3' 'zlib')
+makedepends=('gconf')
+install='gnome-web-photo.install'
+source=("http://ftp.gnome.org/pub/gnome/sources/$pkgname/$pkgver/$pkgname-$pkgver.tar.bz2")
+md5sums=('62952330a62b463df5fef315f4a7cb93')
+
+build() {
+  cd $srcdir/$pkgname-$pkgver
+  
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --libexecdir=/usr/bin \
+    --disable-static \
+    --enable-jpeg=/usr/lib/ || return 1
+  
+  make || return 1
+}
+
+package() {
+  cd $srcdir/$pkgname-$pkgver
+  
+  make DESTDIR=$pkgdir GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1 install || return 1
+  
+  install -dm755 $pkgdir/usr/share/gconf/schemas || return 1
+  gconf-merge-schema $pkgdir/usr/share/gconf/schemas/$pkgname.schemas $pkgdir/etc/gconf/schemas/*.schemas || return 1
+  rm -f $pkgdir/etc/gconf/schemas/*.schemas || return 1
+}
+
+# vim:set ts=2 sw=2 et:
