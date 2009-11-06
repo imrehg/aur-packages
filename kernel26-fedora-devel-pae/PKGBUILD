@@ -1,0 +1,35 @@
+# Maintainer: Phillip Smith <fukawi2@NOSPAM.gmail.com>
+
+pkgname="kernel26-fedora-devel-pae"
+pkgver=2.6.31
+_FEDORA_RELEASE=40.fc12
+pkgrel=1
+url="http://www.kernel.org/"
+pkgdesc="development files for linux kernel and modules, compiled by Fedora with PAE supported. Release $_FEDORA_RELEASE"
+arch=('i686' 'x86_64')
+license=('GPL2')
+depends=('kernel26-fedora-pae')
+makedepends=('rpmextract')
+backup=('etc/mkinitcpio.d/kernel26.preset')
+provides=("kernel26=$pkgver" "kernel26-fedora-pae=$pkgver")
+conflicts=('kernel24' 'kernel24-scsi' 'kernel26-scsi' 'kernel26' 'kernel26-fedora')
+# We need to force the upgrade because the previous maintainer
+# used the Fedora release number as the pkgrel number so we could
+# never have more than one release of each PKGBUILD!
+options=(force)
+source=("http://kojipkgs.fedoraproject.org/packages/kernel/${pkgver}/${_FEDORA_RELEASE}/${CARCH}/kernel-PAE-devel-${pkgver}-${_FEDORA_RELEASE}.${CARCH}.rpm")
+md5sums=('2ade9257df9eaccff5a4ad8fbbbd0c7c')
+
+build() {
+  msg "Nothing to compile for $pkgname"
+}
+
+package() {
+  replaces=('kernel-devel-pae')
+  
+	cd $pkgdir
+  
+	rpmextract.sh $srcdir/kernel-PAE-devel-${pkgver}-${_FEDORA_RELEASE}.${CARCH}.rpm
+}
+
+# vim:set ts=2 sw=2 et:

@@ -1,12 +1,11 @@
 # Maintainer: Phillip Smith <fukawi2@NOSPAM.gmail.com>
 
-pkgname=('kernel26-fedora-pae' 'kernel26-fedora-devel-pae')
-pkgbase="kernel26-fedora-pae"
+pkgname='kernel26-fedora-pae'
 pkgver=2.6.31
 _FEDORA_RELEASE=40.fc12
 pkgrel=1
 url="http://www.kernel.org/"
-pkgdesc="The Linux Kernel and modules, compiled by Fedora. PAE supported. (Memory >= 4GB)"
+pkgdesc="linux kernel and modules, compiled by Fedora with PAE supported. Release $_FEDORA_RELEASE"
 arch=('i686' 'x86_64')
 license=('GPL2')
 depends=('coreutils' 'module-init-tools' 'mkinitcpio>=0.5.15')
@@ -20,17 +19,15 @@ conflicts=('kernel24' 'kernel24-scsi' 'kernel26-scsi' 'kernel26' 'kernel26-fedor
 options=(force)
 install="kernel26-fedora.install"
 source=("http://kojipkgs.fedoraproject.org/packages/kernel/${pkgver}/${_FEDORA_RELEASE}/${CARCH}/kernel-PAE-${pkgver}-${_FEDORA_RELEASE}.${CARCH}.rpm"
-        "http://kojipkgs.fedoraproject.org/packages/kernel/${pkgver}/${_FEDORA_RELEASE}/${CARCH}/kernel-PAE-devel-${pkgver}-${_FEDORA_RELEASE}.${CARCH}.rpm"
         "kernel26-fedora.preset")
 md5sums=('cfc0310d8afbfdc42074029a2d6ae565'
-         '2ade9257df9eaccff5a4ad8fbbbd0c7c'
          'c8f559ad29f3bce277ed054d85878c40')
 
 build() {
   msg "Nothing to compile for $pkgname"
 }
 
-package_kernel26-fedora-pae() {
+package() {
 	cd $pkgdir
   
 	rpmextract.sh $srcdir/kernel-PAE-${pkgver}-${_FEDORA_RELEASE}.${CARCH}.rpm
@@ -48,14 +45,6 @@ EOT
 	
   # Install mkinitcpio files
 	install -D -m644 $srcdir/kernel26-fedora.preset $pkgdir/etc/mkinitcpio.d/kernel26-fedora.preset || return 1
-}
-
-package_kernel26-fedora-devel-pae() {
-  replaces=('kernel-devel-pae')
-  
-	cd $pkgdir
-  
-	rpmextract.sh $srcdir/kernel-PAE-devel-${pkgver}-${_FEDORA_RELEASE}.${CARCH}.rpm
 }
 
 # vim:set ts=2 sw=2 et:
