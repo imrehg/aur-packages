@@ -14,7 +14,7 @@ provides=("kernel26=$pkgver" "kernel26-fedora-pae=$pkgver")
 conflicts=('kernel24' 'kernel24-scsi' 'kernel26-scsi' 'kernel26' 'kernel26-fedora')
 install="kernel26-fedora.install"
 source=("http://kojipkgs.fedoraproject.org/packages/kernel/${pkgver}/${pkgrel}/${CARCH}/kernel-PAE-${pkgver}-${pkgrel}.${CARCH}.rpm"
-	"kernel26-fedora.preset")
+        "kernel26-fedora.preset")
 
 build() {
   msg "Nothing to compile for $pkgname"
