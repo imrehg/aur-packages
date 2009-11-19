@@ -1,21 +1,21 @@
 # Contributor: Phillip Smith <fukawi2@NO-SPAM.gmail.com>
 pkgname=amanda
-pkgver=2.6.1p1
-pkgrel=5
+pkgver=2.6.1p2
+pkgrel=1
 pkgdesc="Advanced Maryland Automatic Network Disk Archiver"
-arch=(i686 x86_64)
+arch=('i686' 'x86_64')
 license=('custom')
 depends=('perl>=5.6.0' 'glib2>=2.2.0' 'gawk' 'gnuplot' 'tar>=1.12' 'xinetd')
 optdepends=('dump: for creating backups in dump format' 'samba: for backing up Windows hosts')
 install="$pkgname.install"
 url="http://www.amanda.org"
-source=(http://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz xinetd.amanda)
-md5sums=('eae0a75f21aa708a8dccf9ea7ac1c631'
+source=("http://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz" "xinetd.$pkgname")
+md5sums=('816ef0101b6d968c5df7d7d7e793caed'
          '910c9823073148c576b14d4a71bc6458')
 
 build() {
   # the amanda user and group are required to build
-  if [ -z `egrep '^amanda' /etc/passwd` ]; then
+  if [ -z `getent passwd amanda` ] ; then
     msg "Adding user/group amanda (temporarily)"
     groupadd -g 112 amanda || return 1
     useradd -u 112 -g amanda -G storage,disk -m -d /var/amanda -s /bin/bash -c "Amanda Backup Daemon"  amanda || return 1
@@ -53,7 +53,7 @@ package() {
   _amandagnutarlists='var/amanda/gnutar-lists'
   
   # the amanda user and group are required to package
-  if [ -z `egrep '^amanda' /etc/passwd` ]; then
+  if [ -z `getent passwd amanda` ]; then
     msg "Adding user/group amanda (temporarily)"
     groupadd -g 112 amanda || return 1
     useradd -u 112 -g amanda -G storage,disk -m -d /var/amanda -s /bin/bash -c "Amanda Backup Daemon"  amanda || return 1
