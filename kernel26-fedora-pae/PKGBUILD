@@ -6,7 +6,7 @@ _FEDORA_RELEASE=40.fc12
 pkgrel=1
 url="http://www.kernel.org/"
 pkgdesc="linux kernel and modules, compiled by Fedora with PAE supported. Release $_FEDORA_RELEASE"
-arch=('i686' 'x86_64')
+arch=('i686')
 license=('GPL2')
 depends=('coreutils' 'module-init-tools' 'mkinitcpio>=0.5.15')
 makedepends=('rpmextract')
