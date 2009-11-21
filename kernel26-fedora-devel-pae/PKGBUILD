@@ -3,10 +3,10 @@
 pkgname="kernel26-fedora-devel-pae"
 pkgver=2.6.31
 _FEDORA_RELEASE=40.fc12
-pkgrel=1
+pkgrel=2
 url="http://www.kernel.org/"
 pkgdesc="development files for linux kernel and modules, compiled by Fedora with PAE supported. Release $_FEDORA_RELEASE"
-arch=('i686' 'x86_64')
+arch=('i686')
 license=('GPL2')
 depends=('kernel26-fedora-pae')
 makedepends=('rpmextract')
