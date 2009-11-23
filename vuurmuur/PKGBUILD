@@ -3,7 +3,7 @@
 
 pkgname=vuurmuur
 pkgver=0.7
-pkgrel=2
+pkgrel=3
 pkgdesc="a powerful firewall manager built on top of iptables on Linux"
 arch=('i686' 'x86_64')
 url="http://www.vuurmuur.org"
@@ -101,8 +101,9 @@ package() {
     -e 's|TC=""|TC="/usr/bin/tc"|' \
     $pkgdir/etc/${pkgname}/config.conf || return 1
   
-  # create log directory 
+  # create log stuff
   mkdir -p -m0700 $pkgdir/var/log/${pkgname} || return 1
+  install -o0 -g0 -dm644 $pkgdir/var/log/$pkgname/traffic.log || return 1
   
   # install rc script
   install -Dm755 $srcdir/rc.$pkgname $pkgdir/etc/rc.d/$pkgname || return 1
