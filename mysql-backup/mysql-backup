@@ -26,7 +26,7 @@
 #=====================================================================
 
 # Version Number
-VER=2.5
+VER=2.6
 
 # Path to options file
 OPTIONS_FILE='/etc/mysql-backup/options.conf'
@@ -179,6 +179,8 @@ OPTIONS_FILE='/etc/mysql-backup/options.conf'
 # Change Log
 #=====================================================================
 #
+# VER 2.6 - (2009-11-24)
+#		Minor fix to allow use of $SOCKET when getting list of database names
 # VER 2.5 - (2006-01-15)
 #		Added support for setting MAXIMUM_PACKET_SIZE and SOCKET parameters (suggested by Yvo van Doorn)
 # VER 2.4 - (2006-01-23)
@@ -425,7 +427,7 @@ fi
 
 # If backing up all DBs on the server
 if [ "$DBNAMES" = "all" ]; then
-        DBNAMES="`mysql --user=$USERNAME --password=$PASSWORD --host=$DBHOST --batch --skip-column-names -e "show databases"| sed 's/ /%/g'`"
+        DBNAMES="`mysql --user=$USERNAME --password=$PASSWORD --host=$DBHOST --socket=$SOCKET --batch --skip-column-names -e "show databases"| sed 's/ /%/g'`"
 
 	# If DBs are excluded
 	for exclude in $DBEXCLUDE
