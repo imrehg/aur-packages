@@ -2,7 +2,7 @@
 
 pkgname=mod_bw
 pkgver=0.7
-pkgrel=3
+pkgrel=4
 pkgdesc="DSO module for Apache that throttles HTTP traffic"
 url="http://bwmod.sourceforge.net"
 arch=('i686' 'x86_64')
@@ -10,14 +10,20 @@ license=('apache')
 depends=('apache')
 makedepends=('apache')
 install="$pkgname.install"
-source=("http://bwmod.sourceforge.net/files/$pkgname-$pkgver.tgz")
-md5sums=('d792a892517ca89f21ac2a6c01e6ccb2')
+source=("http://bwmod.sourceforge.net/files/$pkgname-$pkgver.tgz"
+        'apr_atomic_fix.patch')
+md5sums=('d792a892517ca89f21ac2a6c01e6ccb2'
+         'f9cdca58c58678a2e334086ccf81f898')
 
 build() {
   _MODDIR='usr/lib/httpd/modules'
   _DOCDIR="usr/share/doc/$pkgname"
   
   cd $srcdir/$pkgname
+
+  # fix for undefined symbol errors:
+  # http://4j.blogspot.com/2008/09/fix-for-modbw-when-getting-error.html
+  patch < $srcdir/apr_atomic_fix.patch || return 1
   
   # make the module
   /usr/sbin/apxs -c -o $pkgname.so $pkgname.c || return 1
