@@ -2,7 +2,7 @@
 
 pkgname=mod_bw
 pkgver=0.7
-pkgrel=1
+pkgrel=3
 pkgdesc="DSO module for Apache that throttles HTTP traffic"
 url="http://bwmod.sourceforge.net"
 arch=('i686' 'x86_64')
@@ -13,15 +13,18 @@ install="$pkgname.install"
 source=("http://bwmod.sourceforge.net/files/$pkgname-$pkgver.tgz")
 md5sums=('d792a892517ca89f21ac2a6c01e6ccb2')
 
-build(){ 
+build() {
+  _MODDIR='usr/lib/httpd/modules'
+  _DOCDIR="usr/share/doc/$pkgname"
+  
   cd $srcdir/$pkgname
   
   # make the module
   /usr/sbin/apxs -c -o $pkgname.so $pkgname.c || return 1
-  install -Dm644 .libs/$pkgname.so $pkgdir/usr/lib/apache/$pkgname.so || return 1
+  install -Dm644 .libs/$pkgname.so $pkgdir/$_MODDIR/$pkgname.so || return 1
 
   # install docs
-  install -Dm644 $pkgname.txt $pkgdir/usr/share/doc/$pkgname/$pkgname.txt || return 1
+  install -Dm644 $pkgname.txt $pkgdir/$_DOCDIR/$pkgname/$pkgname.txt || return 1
 }
 
 # vim:set ts=2 sw=2 et:
