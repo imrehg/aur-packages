@@ -14,11 +14,14 @@ source=("http://bwmod.sourceforge.net/files/$pkgname-$pkgver.tgz")
 md5sums=('d792a892517ca89f21ac2a6c01e6ccb2')
 
 build(){ 
-  cd $srcdir/src/$pkgname
+  cd $srcdir/$pkgname
   
   # make the module
   /usr/sbin/apxs -c -o $pkgname.so $pkgname.c || return 1
-  install -Dm644 $pkgname.so $pkgdir/usr/lib/apache/$pkgname.so || return 1
+  install -Dm644 .libs/$pkgname.so $pkgdir/usr/lib/apache/$pkgname.so || return 1
+
+  # install docs
+  install -Dm644 $pkgname.txt $pkgdir/usr/share/doc/$pkgname/$pkgname.txt || return 1
 }
 
 # vim:set ts=2 sw=2 et:
