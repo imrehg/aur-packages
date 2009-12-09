@@ -30,7 +30,7 @@ build() {
   install -Dm644 .libs/$pkgname.so $pkgdir/$_MODDIR/$pkgname.so || return 1
 
   # install docs
-  install -Dm644 $pkgname.txt $pkgdir/$_DOCDIR/$pkgname/$pkgname.txt || return 1
+  install -Dm644 $pkgname.txt $pkgdir/$_DOCDIR/$pkgname.txt || return 1
 }
 
 # vim:set ts=2 sw=2 et:
