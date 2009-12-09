@@ -1,7 +1,7 @@
 # Contributor: Phillip Smith <fukawi2@NO-SPAM.gmail.com>
 
 pkgname=wifidog-auth
-pkgver=1417
+pkgver=1428
 pkgrel=1
 pkgdesc="A complete and embeddable captive portal solution for operating an open hotspot or network of hotspots while preventing abuse of their Internet connection."
 arch=('any')
