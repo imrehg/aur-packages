@@ -9,7 +9,7 @@
 # 090106 - Hacked by PHS to do PostgreSQL Databases instead of MySQL
 # 090819 - Minor fixes, added configuration option for CONNECT_DB
 # 090914 - Removed use of $PATH in favour of using explicitly set path variables within options.conf
-#
+# 091210 - Added support for using a password for the database user. See the DB_PASS config option
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@
 #
 
 # Version Number
-VER=0.9.6
+VER=0.9.7
 
 # Path to options file
 OPTIONS_FILE='/etc/pgsql-backup/options.conf'
@@ -160,6 +160,7 @@ OPT="$OPT --format=${DUMPFORMAT}"
 
 # Database dump function
 dbdump () {
+	export PGPASSWORD="$DB_PASS"
 	$PG_DUMP --username=$USERNAME --host=$DBHOST $OPT $1 > $2
 	return $?
 }
@@ -222,6 +223,7 @@ fi
 
 # If backing up all DBs on the server
 if [ "$DBNAMES" = "all" ]; then
+	export PGPASSWORD="$DB_PASS"
 	DBNAMES=`$PSQL --username=$USERNAME --dbname=$CONNECT_DB -P format=Unaligned -tqc 'SELECT datname FROM pg_database;' | $SED 's/ /%/g'`
 
 	# If DBs are excluded
