@@ -25,7 +25,7 @@
 #
 
 # Version Number
-VER=0.5.0
+VER=0.5.1
 
 # Path to options file
 if [ $# -eq 1 ] ; then

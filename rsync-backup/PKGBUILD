@@ -1,6 +1,6 @@
 # Contributor: Phillip Smith <fukawi2@NO-SPAM.gmail.com>
 pkgname=rsync-backup
-pkgver=0.5.0
+pkgver=0.5.1
 pkgrel=1
 pkgdesc="Automatic rsync backups to a mounted disk or remote server. This script is designed for rsync.net but should work on local mounts or other backup services."
 arch=(any)
@@ -9,9 +9,9 @@ license=('GPL')
 depends=(rsync)
 backup=('etc/rsync-backup/backup.exclude' 'etc/rsync-backup/backup.include' 'etc/rsync-backup/options.conf')
 install=$pkgname.install
-source=(rsync-backup options.conf backup.include backup.exclude)
-md5sums=('32c14b190873653b3ff5fbdb82ff10b5'
-         'ca1f48463ec333cf9f3e6cba38abbcb8'
+source=('rsync-backup' 'options.conf' 'backup.include' 'backup.exclude')
+md5sums=('7cbf314696d3c3d714bc9f00a424d36e'
+         '8cb194b97b9c5a2230d0a75e5b74c824'
          '0b7cd74a8cae5d12b10e806d5c92688e'
          '38bcafb88da89eb1e815a7aae146578c')
 
