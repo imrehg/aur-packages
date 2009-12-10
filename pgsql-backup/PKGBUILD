@@ -1,6 +1,6 @@
 # Contributor: Phillip Smith <fukawi2@NO-SPAM.gmail.com>
 pkgname=pgsql-backup
-pkgver=0.9.6
+pkgver=0.9.7
 pkgrel=1
 pkgdesc="Automatic rolling backups for PostgreSQL"
 arch=(any)
@@ -11,8 +11,8 @@ backup=('etc/pgsql-backup/options.conf')
 optdepends=(bzip2)
 install=$pkgname.install
 source=(pgsql-backup options.conf)
-md5sums=('a39673bc61242a9ee35a784b41491471'
-         'a5c19b60146da534a33c6f6b8706aa60')
+md5sums=('4b0d321b33d37eb3200f6d1910fd3025'
+         '36eb3324b1bf56e5c3e51932488bdecd')
 
 build() {
   msg "Nothing to compile for $pkgname"
