@@ -8,6 +8,8 @@
 # 090630 - Changed the tar command to use the 'p' argument to ensure permissions
 #	   are backed up.
 # 090806 - Hacked by PHS to do rsync backups instead of using tar
+# 091215 - Major bug fix as pointed out by pichulines. The script would *always*
+#          do monthly.0 backups when backing up to a local mount!
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -25,7 +27,7 @@
 #
 
 # Version Number
-VER=0.5.1
+VER=0.6.0
 
 # Path to options file
 if [ $# -eq 1 ] ; then
@@ -210,7 +212,7 @@ if [ $ERRSTAT -eq 0 ] ; then
 			--exclude-from="${EXCLUDE_LIST}" \
 			--include-from="${INCLUDE_LIST}" \
 			/ \
-			${BACKUP_DIR}/monthly.0
+			${BACKUP_DIR}/daily.0
 		RETVAL=$?
 		if [ $RETVAL -ne 0 ] ; then
 			ERRSTAT=1
@@ -218,7 +220,7 @@ if [ $ERRSTAT -eq 0 ] ; then
 
 		# Step 5
 		# Touch the backup directory to show the last backup time
-		touch ${BACKUP_DIR}/monthly.0
+		touch ${BACKUP_DIR}/daily.0
 
 		# Step 6
 		# Create Monthly / Weekly snapshots if required
