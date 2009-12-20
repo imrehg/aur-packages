@@ -1,9 +1,9 @@
 # Maintainer: Phillip Smith <fukawi2@NOSPAM.gmail.com>
 
 pkgname='kernel26-fedora-pae'
-pkgver=2.6.31
-_FEDORA_RELEASE=40.fc12
-pkgrel=2
+pkgver=2.6.32.2
+_FEDORA_RELEASE=14.fc13
+pkgrel=1
 url="http://www.kernel.org/"
 pkgdesc="linux kernel and modules, compiled by Fedora with PAE supported. Release $_FEDORA_RELEASE"
 arch=('i686')
@@ -20,7 +20,7 @@ options=(force)
 install="kernel26-fedora.install"
 source=("http://kojipkgs.fedoraproject.org/packages/kernel/${pkgver}/${_FEDORA_RELEASE}/${CARCH}/kernel-PAE-${pkgver}-${_FEDORA_RELEASE}.${CARCH}.rpm"
         "kernel26-fedora.preset")
-md5sums=('cfc0310d8afbfdc42074029a2d6ae565'
+md5sums=('aec3c164b65ad8a1db1e0afd37dbe15f'
          'c8f559ad29f3bce277ed054d85878c40')
 
 build() {
