@@ -3,13 +3,13 @@
 
 pkgname=gnome-web-photo
 pkgver=0.9
-pkgrel=1
+pkgrel=2
 pkgdesc="a tool to generate full-size image files and thumbnails from HTML files and web pages"
 url="http://www.gnome.org"
 license=("GPL")
 arch=('i686' 'x86_64')
 depends=('dbus-core' 'dbus-glib' 'expat' 'gconf' 'glib2' 'gtk2' 'orbit2' 'pango' 'pixman' 'sqlite3' 'zlib')
-makedepends=('gconf')
+makedepends=('gconf' 'intltool')
 install='gnome-web-photo.install'
 source=("http://ftp.gnome.org/pub/gnome/sources/$pkgname/$pkgver/$pkgname-$pkgver.tar.bz2")
 md5sums=('62952330a62b463df5fef315f4a7cb93')
