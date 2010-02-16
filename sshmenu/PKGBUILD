@@ -3,13 +3,14 @@
 
 pkgname=sshmenu
 pkgver=3.18
-pkgrel=3
+pkgrel=4
 pkgdesc="GNOME panel applet that allows you to start up an SSH connection in a new terminal window with a single click."
 arch=('i686' 'x86_64')
 url="http://sshmenu.sourceforge.net/"
 license=("BSD")
-depends=('openssh' 'x11-ssh-askpass' 'ruby' 'ruby-gtk2' 'ruby-gnome2' 'ruby-gconf2' 'ruby-panelapplet2' 'gnome-terminal')
-source=(http://downloads.sourceforge.net/sshmenu/$pkgname-$pkgver.tar.gz)
+# You can use 'x11-ssh-askpass' instead of 'gnome-ssh-askpass2' to save having to build more packages from the AUR
+depends=('openssh' 'gnome-ssh-askpass2' 'ruby' 'ruby-gtk2' 'ruby-gnome2' 'ruby-gconf2' 'ruby-panelapplet2' 'gnome-terminal')
+source=("http://downloads.sourceforge.net/sshmenu/$pkgname-$pkgver.tar.gz")
 md5sums=('7e7f43135fd112be3c173ec8585d6b98')
 
 build() {
