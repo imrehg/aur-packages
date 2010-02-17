@@ -1,5 +1,5 @@
-# Contributor: Phillip Smith <fukawi2@NO-SPAM.gmail.com>
 # Maintainer: Phillip Smith <fukawi2@NO-SPAM.gmail.com>
+# http://github.com/fukawi2/aur-packages
 # Changelog:
 # 090623 - Merged with old PKGBUILD maintained by tobias
 # 090827 - Split PKGBUILD to have package() function as well as build()

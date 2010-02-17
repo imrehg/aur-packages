@@ -1,6 +1,6 @@
 # Maintainer: Phillip Smith <fukawi2@NO-SPAM.gmail.com>
-# Maintainer: Manolis Tzanidakis <manolis@archlinux.org>
-# Committer: Manolis Tzanidakis <manolis@archlinux.org>
+# http://github.com/fukawi2/aur-packages
+# Contributor: Manolis Tzanidakis <manolis@archlinux.org>
 # Contributer: Hussam Al-Tayeb <ht990332@gmail.com>
 
 pkgname=pppconfig

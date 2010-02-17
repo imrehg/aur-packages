@@ -1,5 +1,5 @@
 # Maintainer: Phillip Smith <fukawi2@NO-SPAM.gmail.com>
-# Maintainer: Dale Blount <dale@archlinux.org>
+# http://github.com/fukawi2/aur-packages
 # Contributor: Dale Blount <dale@archlinux.org>
 
 pkgname=nagios-nrpe

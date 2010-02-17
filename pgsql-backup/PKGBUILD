@@ -1,4 +1,5 @@
-# Contributor: Phillip Smith <fukawi2@NO-SPAM.gmail.com>
+# Maintainer: Phillip Smith <fukawi2@NO-SPAM.gmail.com>
+# http://github.com/fukawi2/aur-packages
 pkgname=pgsql-backup
 pkgver=0.9.7
 pkgrel=1

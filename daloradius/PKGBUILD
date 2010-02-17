@@ -1,4 +1,5 @@
 # Maintainer: Phillip Smith <fukawi2@NO-SPAM.gmail.com>
+# http://github.com/fukawi2/aur-packages
 pkgname=daloradius
 pkgver=0.9.8
 _pkgver=0.9-8

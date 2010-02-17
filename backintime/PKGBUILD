@@ -1,6 +1,8 @@
 # Maintainer: Phillip Smith <fukawi2@NO-SPAM.gmail.com>
-# Maintainer: Matias Korhonen <webadmin@draco-vulgaris.net>
+# http://github.com/fukawi2/aur-packages
+# Contributor: Matias Korhonen <webadmin@draco-vulgaris.net>
 # Contributor: Dylon Edwards <deltaecho@archlinux.us>
+
 pkgname=backintime
 pkgver=0.9.26
 pkgrel=4

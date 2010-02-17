@@ -1,6 +1,8 @@
 # Maintainer: Phillip Smith <fukawi2@NO-SPAM.gmail.com>
-# Maintainer: gregor <gregor@archlinux.org>
+# http://github.com/fukawi2/aur-packages
+# Contributor: gregor <gregor@archlinux.org>
 # Contributor: Tom Newsom <Jeepster@gmx.co.uk>
+
 pkgname=dump
 pkgver=0.4b42
 pkgrel=1

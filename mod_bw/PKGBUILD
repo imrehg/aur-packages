@@ -1,4 +1,5 @@
-# Contributor: Phillip Smith <fukawi2@NOSPAM.gmail.com>
+# Maintainer: Phillip Smith <fukawi2@NO-SPAM.gmail.com>
+# http://github.com/fukawi2/aur-packages
 
 pkgname=mod_bw
 pkgver=0.7
