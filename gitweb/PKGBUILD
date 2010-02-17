@@ -1,14 +1,14 @@
 # Maintainer: Phillip Smith <fukawi2@NO-SPAM.gmail.com>
 pkgname=gitweb
-pkgver=1.6.5.5
+pkgver=1.7.0
 pkgrel=1
 pkgdesc="web gui for the fast distributed version control system"
-arch=(i686 x86_64)
+arch=('i686' 'x86_64')
 url="http://git-scm.com/"
 license=('GPL2')
 depends=('curl' 'expat>=2.0' 'perl-error' 'perl>=5.10.0')
 source=("http://kernel.org/pub/software/scm/git/git-${pkgver}.tar.bz2")
-md5sums=('fd575f22e67adbea1d17e5bc66a80f8d')
+md5sums=('c7553b73e2156d187ece6ba936ae30ab')
 
 build() {
   cd $srcdir/git-$pkgver/
@@ -26,6 +26,9 @@ package() {
   for F in gitweb.cgi gitweb.css git-logo.png git-favicon.png ; do
     install -Dm644 $F $pkgdir/srv/http/gitweb/$F || return 1
   done
+
+  # Make the main gitweb.cgi executable
+  chmod 755 $pkgdir/srv/http/gitweb/gitweb.cgi || return 1
 }
 
 # vim:set ts=2 sw=2 et:
