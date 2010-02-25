@@ -28,6 +28,7 @@ package() {
   cd $srcdir/
 
   install -Dm0755 .libs/mod_form.so $pkgdir/usr/lib/httpd/modules/mod_form.so || return 1
+  install -Dm0644 mod_form.h $pkgdir/usr/include/httpd/mod_form.h || return 1
 }
 
 # vim:set ts=2 sw=2 et:
