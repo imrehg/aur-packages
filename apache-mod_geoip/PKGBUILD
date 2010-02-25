@@ -1,4 +1,5 @@
-# Contributor: Your Name <youremail@domain.com>
+# Contributor: Phillip Smith <fukawi2@NO-SPAM.gmail.com>
+# http://github.com/fukawi2/aur-packages
 
 pkgname=apache-mod_geoip2
 pkgver=1.2.5
