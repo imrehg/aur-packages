@@ -3,7 +3,7 @@
 # Contributor: Christian Berendt <christian@thorlin.de>
 
 pkgname=cfengine
-pkgver=3.0.2
+pkgver=3.0.3
 pkgrel=1
 pkgdesc="automated suite of programs for configuring and maintaining Unix-like computers."
 url="http://www.cfengine.org"
@@ -11,7 +11,7 @@ license=('GPL3')
 arch=('i686' 'x86_64')
 depends=('openssl' 'db' 'flex' 'bison' 'pcre')
 source=("http://www.cfengine.org/tarballs/${pkgname}-${pkgver}.tar.gz")
-md5sums=('ba23adb8c54c2da13953d8b24f303430')
+md5sums=('ba1af278e9f8b519766b6ca4e1377d22')
 
 build() {
 	cd ${srcdir}/${pkgname}-${pkgver} || return 1
