@@ -4,12 +4,13 @@
 
 pkgname=awstats
 pkgver=6.95
-pkgrel=1
+pkgrel=2
 pkgdesc="tool that generates web, streaming, ftp and mail server statistics, graphically"
 arch=('any')
 license='GPL'
 url="http://awstats.sourceforge.net/"
 depends=('perl')
+optdepends=('mod_perl: if you are using Apache as your HTTP server' 'mod_cgi: if you are using lighttpd as your HTTP server')
 install="awstats.install"
 backup=('etc/awstats/awstats.model.conf' 'etc/httpd/conf/extra/httpd-awstats.conf')
 source=("http://downloads.sourceforge.net/sourceforge/${pkgname}/${pkgname}-${pkgver}.tar.gz" "cron.awstats")
