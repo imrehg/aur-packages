@@ -2,8 +2,8 @@
 # http://github.com/fukawi2/aur-packages
 
 pkgname='kernel26-fedora-pae'
-pkgver=2.6.32.3
-_FEDORA_RELEASE=10.fc12
+pkgver=2.6.33.2
+_FEDORA_RELEASE=60.fc13
 pkgrel=1
 url="http://www.kernel.org/"
 pkgdesc="linux kernel and modules, compiled by Fedora with PAE supported. Release $_FEDORA_RELEASE"
@@ -21,8 +21,9 @@ options=(force)
 install="kernel26-fedora.install"
 source=("http://kojipkgs.fedoraproject.org/packages/kernel/${pkgver}/${_FEDORA_RELEASE}/${CARCH}/kernel-PAE-${pkgver}-${_FEDORA_RELEASE}.${CARCH}.rpm"
         "kernel26-fedora.preset")
-md5sums=('2933c3e7dd9c9ca971b8cdaa9fdd69a8'
+md5sums=('eddcb3a3e94c19cecdb9497599eb3a5a'
          'c8f559ad29f3bce277ed054d85878c40')
+
 build() {
   msg "Nothing to compile for $pkgname"
 }
