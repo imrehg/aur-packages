@@ -26,6 +26,7 @@ if [ `which kdeinit4 2> /dev/null` ]; then
 fi
 
 if [ ${#_type[@]} == 0 ]; then
+  msg "Could not locate gnome-session or kdeinit4 to determine environment to build for"
   return 1
 fi
 
