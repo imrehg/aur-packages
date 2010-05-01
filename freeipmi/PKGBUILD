@@ -4,9 +4,9 @@
 
 pkgname=freeipmi
 pkgver=0.8.3
-pkgrel=1
+pkgrel=2
 pkgdesc="sensor monitoring, system event monitoring, power control, and serial-over-LAN (SOL)"
-arch=('i686')
+arch=('i686' 'x86_64')
 url="http://www.gnu.org/software/freeipmi/"
 license=('GPL')
 depends=('libgcrypt')
