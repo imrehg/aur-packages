@@ -2,14 +2,12 @@ post_install ()
 {
 	echo ">"
 	echo "> Updating module dependencies. Please wait ..."
-	echo "> 更新模块依赖关系，请稍候 ..."
 
 	kernel_version=$(pacman -Ql kernel26-fedora-pae | grep "lib/modules/.*/modules.order" | cut -d "/" -f4)
 	depmod -a ${kernel_version}
 
 	echo ">"
 	echo "> Generating boot initramfs with mkinitcpio.  Please wait..."
-	echo "> 用mkinitcpio创建启动内核镜像，请稍候..."
 	echo ">"
 
 	/sbin/mkinitcpio -p kernel26-fedora
@@ -23,10 +21,6 @@ post_install ()
 	echo "> The boot initramfs is "kernel26-fedora.img" and "kernel26-fedora-fallback.img" "
 	echo "> Pls. add the corresponding boot options to your boot configuration file."
 	echo "> Below lines need to be added to grub.lst for reference: "
-	echo "> 启动内核镜像创建完成:"
-	echo "> 内核： "vmlinuz-${kernel_version}.PAE" "
-	echo "> 启动内核镜像： "kernel26-fedora.img" 和 "kernel26-fedora-fallback.img" "
-	echo "> 请将相应启动选项加入到启动配置文件，以下是grub.lst的仅供参考:"
 	echo ""
 	echo "title Arch Linux ${rootdevice} (initrd=/boot/kernel26-fedora.img) "
 	echo "root (hd0,${bootindex}) "
