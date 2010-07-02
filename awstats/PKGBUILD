@@ -4,7 +4,7 @@
 
 pkgname=awstats
 pkgver=6.95
-pkgrel=2
+pkgrel=3
 pkgdesc="tool that generates web, streaming, ftp and mail server statistics, graphically"
 arch=('any')
 license='GPL'
@@ -37,6 +37,7 @@ package() {
 
 	# Arch Linux specific path:
 	install -Dm644 tools/httpd_conf $pkgdir/${_SYSCONFDIR}/httpd/conf/extra/httpd-awstats.conf || return 1
+	install -Dm644 wwwroot/cgi-bin/awstats.model.conf $pkgdir/${_SYSCONFDIR}/awstats/awstats.model.conf || return 1
 	install -Dm744 $srcdir/cron.awstats $pkgdir/${_SYSCONFDIR}/cron.hourly/awstats || return 1
 
 	install -m 755 tools/logresolvemerge.pl $pkgdir/$_INSTDIR/tools/logresolvemerge.pl || return 1
@@ -54,6 +55,7 @@ package() {
 
 	# www files
 	cp -ra wwwroot/* $pkgdir/$_WWWROOT/ || return 1
+  rm -f $pkgdir/$_WWWROOT/cgi-bin/awstats.model.conf || return 1
 	install -Dm444 README.TXT $pkgdir/$_INSTDIR/README.TXT || return 1
 
 	# fix the default http config
