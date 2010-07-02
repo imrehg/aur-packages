@@ -1,0 +1,29 @@
+# Maintainer: Phillip Smith <fukawi2@NO-SPAM.gmail.com>
+# http://github.com/fukawi2/aur-packages
+
+pkgname=dopewars
+pkgver=1.5.12
+pkgrel=1
+pkgdesc="Make a fortune dealing drugs on the streets of New York"
+arch=('i686' 'x86_64')
+url="http://dopewars.sourceforge.net"
+license=('GPL')
+depends=('glib' 'ncurses')
+source=("http://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz")
+md5sums=('debf749de9053dc2fb2e74c37ae06206')
+
+build() {
+  cd $srcdir/$pkgname-$pkgver
+  
+  ./configure --prefix=/usr
+
+  make || return 1
+}
+
+package() {
+  cd $srcdir/$pkgname-$pkgver
+  
+  make prefix=$pkgdir/usr install || return 1
+}
+
+# vim:set ts=2 sw=2 et:
