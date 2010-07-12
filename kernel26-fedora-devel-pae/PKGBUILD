@@ -2,8 +2,8 @@
 # http://github.com/fukawi2/aur-packages
 
 pkgname="kernel26-fedora-devel-pae"
-pkgver=2.6.33.4
-_FEDORA_RELEASE=95.fc13
+pkgver=2.6.34
+_FEDORA_RELEASE=45.fc14
 pkgrel=1
 url="http://www.kernel.org/"
 pkgdesc="development files for linux kernel and modules, compiled by Fedora with PAE supported. Release $_FEDORA_RELEASE"
@@ -19,7 +19,7 @@ conflicts=('kernel24' 'kernel24-scsi' 'kernel26-scsi' 'kernel26' 'kernel26-fedor
 # never have more than one release of each PKGBUILD!
 options=(force)
 source=("http://kojipkgs.fedoraproject.org/packages/kernel/${pkgver}/${_FEDORA_RELEASE}/${CARCH}/kernel-PAE-devel-${pkgver}-${_FEDORA_RELEASE}.${CARCH}.rpm")
-md5sums=('11b2a3d99fd354c67185546db80d0063')
+md5sums=('e886bfe9905301137bfb90cfe50c31a6')
 
 build() {
   msg "Nothing to compile for $pkgname"
