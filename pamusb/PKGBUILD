@@ -1,0 +1,31 @@
+# Maintainer: Phillip Smith <fukawi2@NO-SPAM.gmail.com>
+# http://github.com/fukawi2/aur-packages
+
+pkgname=pamusb
+pkgver=0.4.2
+pkgrel=1
+pkgdesc="Provides hardware authentication for Linux using ordinary USB Flash Drives via pam."
+arch=('i686' 'x86_64')
+url="http://www.pamusb.org/"
+license=('GPL')
+depends=('pam')
+source=("http://downloads.sourceforge.net/$pkgname/pam_usb-$pkgver.tar.gz")
+md5sums=('2320b752dd0b030dfbb0a3935e7dc899')
+
+build() {
+  cd $srcdir/pam_usb-$pkgver
+  
+  make
+}
+
+package() {
+  cd $srcdir/pam_usb-$pkgver
+  
+  make DESTDIR="$pkgdir/usr" install || return 1
+
+  mkdir $pkgdir/etc/
+  mv $pkgdir/usr/etc/pamusb.conf $pkgdir/etc/
+  ln -sf /etc/pamusb.conf $pkgdir/usr/etc/pamusb.conf
+}
+
+# vim:set ts=2 sw=2 et:
