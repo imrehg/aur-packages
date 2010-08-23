@@ -48,6 +48,7 @@ package() {
 date +%Y%m%d%H%M > time.txt
 date +%Y%m%d%H%M
 EOT
+  chmod 755 $pkgdir/var/$pkgname/script.time
 
   cat > $pkgdir/var/$pkgname/hosts.all << EOT
 db1.mydomain.com
