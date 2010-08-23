@@ -4,7 +4,7 @@
 pkgname=massh
 pkgver=1.0.3
 _PKGVER=1.0-3
-pkgrel=1
+pkgrel=2
 pkgdesc="Mass ssh'er that allows for parallel execution of commands on remote systems"
 arch=('any')
 url="http://m.a.tt/er/massh.html"
@@ -28,7 +28,9 @@ package() {
   cp usr/local/etc/* $pkgdir/etc/
   cp usr/local/share/doc/massh/* $pkgdir/usr/share/doc/$pkgname/
 
-  # Fix paths in the script
+  # Fix paths
+  sed -e 's|[^:]/usr/local[^:]||g' \
+      -i $pkgdir/etc/*
   sed -e 's|[^:]/usr/local[^:]||g' \
       -i $pkgdir/usr/bin/ambit \
       -i $pkgdir/usr/bin/pingz \
