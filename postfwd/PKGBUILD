@@ -3,7 +3,7 @@
 
 pkgname=postfwd
 pkgver=1.18
-pkgrel=1
+pkgrel=2
 pkgdesc="Combines complex postfix restrictions in a ruleset similar to those of the most firewalls"
 arch=(any)
 url="http://postfwd.org/"
@@ -27,6 +27,9 @@ package() {
   cp -ra man/*    $pkgdir/usr/share/man/
   cp -ra tools/*  $pkgdir/usr/share/$pkgname/
   cp -ra doc/*    $pkgdir/usr/share/$pkgname/
+
+  mkdir $pkgdir/etc/rc.d/
+  mv $pkgdir/usr/bin/postfwd-script.sh $pkgdir/etc/rc.d/$pkgname
 
   mkdir -p $pkgdir/usr/share/licenses/$pkgname
   mv $pkgdir/usr/share/$pkgname/LICENSE $pkgdir/usr/share/licenses/$pkgname
