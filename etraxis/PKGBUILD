@@ -1,8 +1,9 @@
 # Maintainer: Phillip Smith <fukawi2@NO-SPAM.gmail.com>
 # http://github.com/fukawi2/aur-packages
+
 pkgname=etraxis
-pkgver=2.0.0
-pkgrel=2
+pkgver=2.1.17
+pkgrel=1
 pkgdesc="web-based bug tracking system written on PHP. Includes fully custom templates, advanced filters, LDAP support, email notifications, subscriptions, reminders, flexible permissions management and graphical project metrics"
 arch=(any)
 url="http://www.etraxis.org"
@@ -11,8 +12,8 @@ depends=('php>=5.1' 'php-gd' 'php-xsl')
 optdepends=('php-pgsql: for postgresql database support' 'php-ldap: for ldap authentication')
 install="$pkgname.install"
 backup=("srv/http/$pkgname/engine/config.php")
-source=("http://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.zip")
-md5sums=('c96b148854070f32b9aa61562d90aa95')
+source=("http://$pkgname.googlecode.com/files/$pkgname-$pkgver.zip")
+md5sums=('d6546b59db548a7858f2fa3ba20b1b95')
 
 build() {
   msg "Nothing to compile for $pkgname"
