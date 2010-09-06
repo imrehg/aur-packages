@@ -3,8 +3,8 @@
 # Contributor: Nathan Owe <ndowens04 at gmail>
 
 pkgname=freeipmi
-pkgver=0.8.3
-pkgrel=2
+pkgver=0.8.9
+pkgrel=1
 pkgdesc="sensor monitoring, system event monitoring, power control, and serial-over-LAN (SOL)"
 arch=('i686' 'x86_64')
 url="http://www.gnu.org/software/freeipmi/"
@@ -12,7 +12,7 @@ license=('GPL')
 depends=('libgcrypt')
 options=('!libtool')
 source=("http://ftp.gluster.com/pub/freeipmi/$pkgver/$pkgname-$pkgver.tar.gz")
-md5sums=('462a3eda64f28e63d9780baf786116c8')
+md5sums=('5c729b91e229c3ed3cd1d568195a2d26')
 
 build() {
   cd $srcdir/$pkgname-$pkgver
