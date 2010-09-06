@@ -2,7 +2,7 @@
 # http://github.com/fukawi2/aur-packages
 
 pkgname=mirrorbrain
-pkgver=2.12.0
+pkgver=2.13.0
 pkgrel=1
 pkgdesc="an open source framework to run a content delivery network using mirror servers."
 arch=('i686' 'x86_64')
@@ -17,19 +17,24 @@ optdepends=('postgresqli-server: recommended database, but can use any database 
 provides=('mod_mirrorbrain')
 backup=("etc/$pkgname.conf")
 install="$pkgname.install"
-source=("http://mirrorbrain.org/files/releases/$pkgname-$pkgver.tar.gz" "$pkgname.conf")
-md5sums=('70136666f62a3dd4fd9b1785690e4b7d'
+source=("http://mirrorbrain.org/files/releases/$pkgname-$pkgver.tar.gz"
+        "$pkgname.conf")
+md5sums=('a68b0c81fc18ff3ea752890ed0abb799'
          '490bcf829ca6cc8086f3d18bddb9420c')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver/mod_mirrorbrain/"
-  apxs -c mod_mirrorbrain.c || return 1
+  apxs -c mod_mirrorbrain.c
+
+  cd "$srcdir/$pkgname-$pkgver/tools"
+  gcc -Wall -o geoiplookup_continent geoiplookup_continent.c -lGeoIP
+  gcc -Wall -o geoiplookup_city geoiplookup_city.c -lGeoIP
 }
 
 package() {
   # Install the apache module
   cd "$srcdir/$pkgname-$pkgver/mod_mirrorbrain/"
-  install -Dm0755 .libs/mod_mirrorbrain.so $pkgdir/usr/lib/httpd/modules/mod_mirrorbrain.so || return 1
+  install -Dm755 .libs/mod_mirrorbrain.so $pkgdir/usr/lib/httpd/modules/mod_mirrorbrain.so || return 1
   
   # Install SQL templates
   cd "$srcdir/$pkgname-$pkgver/sql/"
@@ -41,10 +46,18 @@ package() {
   install -Dm640 -o root -g 33 $pkgname.conf $pkgdir/etc/$pkgname.conf || return 1
 
   # Install the mb script
-  cd "$srcdir/$pkgname-$pkgver/mirrordoctor/"
+  cd "$srcdir/$pkgname-$pkgver/mb/"
   python setup.py install --root=$pkgdir || return 1
   ln -sf /usr/bin/mirrordoctor.py $pkgdir/usr/bin/mb || return 1
-  
+
+  # Install the tools  
+  cd "$srcdir/$pkgname-$pkgver/tools/"
+  install -Dm755 geoiplookup_continent $pkgdir/usr/bin/geoiplookup_continent
+  install -Dm755 geoiplookup_city      $pkgdir/usr/bin/geoiplookup_city
+  install -Dm755 geoip-lite-update     $pkgdir/usr/bin/geoip-lite-update
+  install -Dm755 null-rsync            $pkgdir/usr/bin/null-rsync
+  install -Dm755 scanner.pl            $pkgdir/usr/bin/scanner
+
   # Install the mirrorprobe script
   cd "$srcdir/$pkgname-$pkgver/mirrorprobe/"
   install -Dm0755 mirrorprobe.py $pkgdir/usr/bin/mirrorprobe || return 1
