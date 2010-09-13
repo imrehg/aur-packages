@@ -3,7 +3,7 @@
 
 pkgname=mirrorbrain
 pkgver=2.13.0
-pkgrel=1
+pkgrel=2
 pkgdesc="an open source framework to run a content delivery network using mirror servers."
 arch=('i686' 'x86_64')
 url="http://mirrorbrain.org"
@@ -19,7 +19,7 @@ backup=("etc/$pkgname.conf")
 install="$pkgname.install"
 source=("http://mirrorbrain.org/files/releases/$pkgname-$pkgver.tar.gz"
         "$pkgname.conf")
-md5sums=('a68b0c81fc18ff3ea752890ed0abb799'
+md5sums=('6b5b04d94f4bb15c6b40336b748cce2f'
          '490bcf829ca6cc8086f3d18bddb9420c')
 
 build() {
