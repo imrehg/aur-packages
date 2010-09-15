@@ -1,4 +1,6 @@
 post_install() {
+  [[ -e '/usr/bin/mb.py' ]]   && rm -f /usr/bin/mb.py
+  [[ -e '/usr/bin/mb.pyc' ]]  && rm -f /usr/bin/mb.pyc
   echo "mirrorbrain: Configuration instructions need to be followed:"
   echo "             http://mirrorbrain.org/docs/installation/source/"
 }

@@ -3,7 +3,7 @@
 
 pkgname=mirrorbrain
 pkgver=2.13.0
-pkgrel=2
+pkgrel=3
 pkgdesc="an open source framework to run a content delivery network using mirror servers."
 arch=('i686' 'x86_64')
 url="http://mirrorbrain.org"
@@ -23,8 +23,11 @@ md5sums=('6b5b04d94f4bb15c6b40336b748cce2f'
          '490bcf829ca6cc8086f3d18bddb9420c')
 
 build() {
+  # Compile the apache modules
   cd "$srcdir/$pkgname-$pkgver/mod_mirrorbrain/"
   apxs -c mod_mirrorbrain.c
+  cd "$srcdir/$pkgname-$pkgver/mod_autoindex_mb/"
+  apxs -c mod_autoindex_mb.c
 
   cd "$srcdir/$pkgname-$pkgver/tools"
   gcc -Wall -o geoiplookup_continent geoiplookup_continent.c -lGeoIP
@@ -32,35 +35,33 @@ build() {
 }
 
 package() {
-  # Install the apache module
+  # Install the apache modules
   cd "$srcdir/$pkgname-$pkgver/mod_mirrorbrain/"
-  install -Dm755 .libs/mod_mirrorbrain.so $pkgdir/usr/lib/httpd/modules/mod_mirrorbrain.so || return 1
-  
-  # Install SQL templates
-  cd "$srcdir/$pkgname-$pkgver/sql/"
-  mkdir -p $pkgdir/usr/share/$pkgname/sql/ || return 1
-  cp -rv * $pkgdir/usr/share/$pkgname/sql/ || return 1
+  install -Dm755 .libs/mod_mirrorbrain.so $pkgdir/usr/lib/httpd/modules/mod_mirrorbrain.so
+  cd "$srcdir/$pkgname-$pkgver/mod_autoindex_mb/"
+  install -Dm755 .libs/mod_autoindex_mb.so $pkgdir/usr/lib/httpd/modules/mod_autoindex_mb.so
 
-  # Install default configuration file
-  cd "$srcdir/"
-  install -Dm640 -o root -g 33 $pkgname.conf $pkgdir/etc/$pkgname.conf || return 1
+  # Install the tools  
+  cd "$srcdir/$pkgname-$pkgver/"
+  install -Dm755 tools/geoiplookup_continent  $pkgdir/usr/bin/geoiplookup_continent
+  install -Dm755 tools/geoiplookup_city       $pkgdir/usr/bin/geoiplookup_city
+  install -Dm755 tools/geoip-lite-update      $pkgdir/usr/bin/geoip-lite-update
+  install -Dm755 tools/null-rsync             $pkgdir/usr/bin/null-rsync
+  install -Dm755 tools/scanner.pl             $pkgdir/usr/bin/scanner
+  install -Dm755 mirrorprobe/mirrorprobe.py   $pkgdir/usr/bin/mirrorprobe
 
   # Install the mb script
   cd "$srcdir/$pkgname-$pkgver/mb/"
-  python setup.py install --root=$pkgdir || return 1
-  ln -sf /usr/bin/mirrordoctor.py $pkgdir/usr/bin/mb || return 1
+  python setup.py install --root="$pkgdir"
 
-  # Install the tools  
-  cd "$srcdir/$pkgname-$pkgver/tools/"
-  install -Dm755 geoiplookup_continent $pkgdir/usr/bin/geoiplookup_continent
-  install -Dm755 geoiplookup_city      $pkgdir/usr/bin/geoiplookup_city
-  install -Dm755 geoip-lite-update     $pkgdir/usr/bin/geoip-lite-update
-  install -Dm755 null-rsync            $pkgdir/usr/bin/null-rsync
-  install -Dm755 scanner.pl            $pkgdir/usr/bin/scanner
+  # Install SQL templates
+  cd "$srcdir/$pkgname-$pkgver/sql/"
+  mkdir -p $pkgdir/usr/share/$pkgname/sql/
+  cp -rv * $pkgdir/usr/share/$pkgname/sql/
 
-  # Install the mirrorprobe script
-  cd "$srcdir/$pkgname-$pkgver/mirrorprobe/"
-  install -Dm0755 mirrorprobe.py $pkgdir/usr/bin/mirrorprobe || return 1
+  # Install default configuration file
+  cd "$srcdir/"
+  install -Dm640 -o root -g 33 $pkgname.conf $pkgdir/etc/$pkgname.conf
 }
 
 # vim:set ts=2 sw=2 et:
