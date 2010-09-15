@@ -3,13 +3,13 @@
 
 pkgname=mirrorbrain
 pkgver=2.13.0
-pkgrel=3
+pkgrel=4
 pkgdesc="an open source framework to run a content delivery network using mirror servers."
 arch=('i686' 'x86_64')
 url="http://mirrorbrain.org"
 license=('GPL')
 depends=('apache>=2.2.6' 'apache-mod_form' 'apache-mod_geoip2' 'geoip'
-         'perl' 'perl-config-ini' 'perl-libwww' 'perl-dbd-pg' 'perl-digest-md4' 'perl-timedate'
+         'perl' 'perl-config-inifiles' 'perl-libwww' 'perl-dbd-pg' 'perl-digest-md4' 'perl-timedate'
          'python' 'python-psycopg2' 'python-sqlobject' 'cmdln')
 makedepends=('apache>=2.2.6' 'apache-mod_form' 'python')
 optdepends=('postgresqli-server: recommended database, but can use any database the Apache DBD API supports'
@@ -30,6 +30,10 @@ build() {
   apxs -c mod_autoindex_mb.c
 
   cd "$srcdir/$pkgname-$pkgver/tools"
+  # Patch for Arch storing GeoIP DB in different location
+  sed -e 's|/var/lib/GeoIP/GeoIP.dat|/usr/share/GeoIP/GeoIP.dat|g' \
+    -i geoiplookup_continent.c \
+    -i geoiplookup_city.c
   gcc -Wall -o geoiplookup_continent geoiplookup_continent.c -lGeoIP
   gcc -Wall -o geoiplookup_city geoiplookup_city.c -lGeoIP
 }
