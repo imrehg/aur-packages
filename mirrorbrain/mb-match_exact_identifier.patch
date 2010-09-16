@@ -1,0 +1,15 @@
+--- conn.py.ORIG	2010-09-16 13:19:20.000000000 +1000
++++ conn.py	2010-09-16 13:21:19.000000000 +1000
+@@ -269,7 +269,11 @@
+     
+ 
+ def servers_match(server, match):
+-    servers = server.select("""identifier LIKE '%%%s%%'""" % match)
++    servers = server.select("""identifier = '%s'""" % match)
++
++    if len(list(servers)) == 0:
++        servers = server.select("""identifier LIKE '%%%s%%'""" % match)
++
+     return list(servers)
+ 
+ 
