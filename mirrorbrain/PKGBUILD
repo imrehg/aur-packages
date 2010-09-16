@@ -3,7 +3,7 @@
 
 pkgname=mirrorbrain
 pkgver=2.13.0
-pkgrel=5
+pkgrel=6
 pkgdesc="an open source framework to run a content delivery network using mirror servers."
 arch=('i686' 'x86_64')
 url="http://mirrorbrain.org"
@@ -21,13 +21,11 @@ source=("http://mirrorbrain.org/files/releases/$pkgname-$pkgver.tar.gz"
         "$pkgname.conf"
         'mb-scanner.pl-lighttpd_support.patch'
         'mb-match_exact_identifier.patch'
-        "$pkgname.conf"
         'logrotate.mb')
 md5sums=('6b5b04d94f4bb15c6b40336b748cce2f'
          'b5015aea4603c786cf56ce6c3e6fc9b6'
          '349b9cf18d60e9a337da69d191346800'
          '2f62f4a074d46d5f35f3908d202c1c1d'
-         'b5015aea4603c786cf56ce6c3e6fc9b6'
          '7a6a7f700aacc3a9bd3925b11967e0f5')
 
 build() {
