@@ -3,7 +3,7 @@
 
 pkgname=mirrorbrain
 pkgver=2.13.0
-pkgrel=4
+pkgrel=5
 pkgdesc="an open source framework to run a content delivery network using mirror servers."
 arch=('i686' 'x86_64')
 url="http://mirrorbrain.org"
@@ -18,11 +18,17 @@ provides=('mod_mirrorbrain')
 backup=("etc/$pkgname.conf")
 install="$pkgname.install"
 source=("http://mirrorbrain.org/files/releases/$pkgname-$pkgver.tar.gz"
-        "$pkgname.conf")
+        "$pkgname.conf"
+        "mb-scanner.pl-lighttpd_support.patch")
 md5sums=('6b5b04d94f4bb15c6b40336b748cce2f'
-         '490bcf829ca6cc8086f3d18bddb9420c')
+         '490bcf829ca6cc8086f3d18bddb9420c'
+         '349b9cf18d60e9a337da69d191346800')
 
 build() {
+  # Apply patches
+  cd "$srcdir/$pkgname-$pkgver/tools/"
+  patch < $srcdir/mb-scanner.pl-lighttpd_support.patch
+
   # Compile the apache modules
   cd "$srcdir/$pkgname-$pkgver/mod_mirrorbrain/"
   apxs -c mod_mirrorbrain.c
