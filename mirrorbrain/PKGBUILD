@@ -2,8 +2,8 @@
 # http://github.com/fukawi2/aur-packages
 
 pkgname=mirrorbrain
-pkgver=2.13.0
-pkgrel=6
+pkgver=2.13.1
+pkgrel=1
 pkgdesc="an open source framework to run a content delivery network using mirror servers."
 arch=('i686' 'x86_64')
 url="http://mirrorbrain.org"
@@ -19,22 +19,12 @@ backup=("etc/$pkgname.conf")
 install="$pkgname.install"
 source=("http://mirrorbrain.org/files/releases/$pkgname-$pkgver.tar.gz"
         "$pkgname.conf"
-        'mb-scanner.pl-lighttpd_support.patch'
-        'mb-match_exact_identifier.patch'
         'logrotate.mb')
-md5sums=('6b5b04d94f4bb15c6b40336b748cce2f'
-         'b5015aea4603c786cf56ce6c3e6fc9b6'
-         '349b9cf18d60e9a337da69d191346800'
-         '2f62f4a074d46d5f35f3908d202c1c1d'
-         '7a6a7f700aacc3a9bd3925b11967e0f5')
+md5sums=('c5b13de8d06052dbd8acc8ffff8eaa4c'
+         '82cfccc53e67f589091ab4c2c9720e2a'
+         'eb45b77ed530bf13f753967526ece925')
 
 build() {
-  # Apply patches
-  cd "$srcdir/$pkgname-$pkgver/tools/"
-  patch < $srcdir/mb-scanner.pl-lighttpd_support.patch
-  cd "$srcdir/$pkgname-$pkgver/mb/mb/"
-  patch < $srcdir/mb-match_exact_identifier.patch
-
   # Compile the apache modules
   cd "$srcdir/$pkgname-$pkgver/mod_mirrorbrain/"
   apxs -c mod_mirrorbrain.c
