@@ -2,7 +2,7 @@
 # http://github.com/fukawi2/aur-packages
 
 pkgname=postgresql-client
-pkgver=8.4.4
+pkgver=9.0.0
 pkgrel=1
 pkgdesc="Client only install of a sophisticated object-relational DBMS"
 arch=('i686' 'x86_64')
@@ -12,7 +12,7 @@ url="http://www.postgresql.org/"
 depends=("postgresql-libs>=$pkgver" "libxml2" 'readline>=6.0')
 options=('!makeflags')
 source=("ftp://ftp.postgresql.org/pub/source/v${pkgver}/postgresql-${pkgver}.tar.bz2" "build.patch")
-md5sums=('4bf2448ad965bca3940df648c02194df'
+md5sums=('14c2122cc322e69ab2ab702ed7714bbe'
          '4d74f4227dc5e12bf95b3490758d86c9')
 
 build() {
