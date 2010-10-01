@@ -2,7 +2,7 @@
 # http://github.com/fukawi2/aur-packages
 
 pkgname=gitweb
-pkgver=1.7.2.3
+pkgver=1.7.3.1
 pkgrel=1
 pkgdesc="web gui for the fast distributed version control system"
 arch=('i686' 'x86_64')
@@ -10,7 +10,7 @@ url="http://git-scm.com/"
 license=('GPL2')
 depends=('curl' 'expat>=2.0' 'perl-error' 'perl>=5.10.0')
 source=("http://kernel.org/pub/software/scm/git/git-${pkgver}.tar.bz2")
-md5sums=('d88c06f6442156686deb4b4fbab0954c')
+md5sums=('77e1611498919965fb65fd1f229ee155')
 
 build() {
   cd $srcdir/git-$pkgver
