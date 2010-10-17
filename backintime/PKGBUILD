@@ -4,15 +4,15 @@
 # Contributor: Dylon Edwards <deltaecho@archlinux.us>
 
 pkgname=backintime
-pkgver=1.0
-pkgrel=2
+pkgver=1.0.2
+pkgrel=1
 pkgdesc="Back In Time is a simple backup system for Linux inspired from the Flyback project and TimeVault."
 arch=('i686' 'x86_64')
 url="http://backintime.le-web.org/"
 license=('GPL')
 depends=( 'python' 'rsync' 'dcron' )
-source=(http://backintime.le-web.org/download/${pkgname}/${pkgname}-${pkgver}_src.tar.gz)
-md5sums=('ec1322932b303cb7c268eebb5444c925')
+source=("http://backintime.le-web.org/download/${pkgname}/${pkgname}-${pkgver}_src.tar.gz")
+md5sums=('51c27dc10e7e65e8acb888e376abb0f8')
 
 # Build a custom array of depends based on what DE is installed
 if [ -e '/usr/lib/libkonq.so' ]; then
