@@ -5,7 +5,7 @@
 
 pkgname=backintime
 pkgver=1.0.2
-pkgrel=2
+pkgrel=3
 pkgdesc="Back In Time is a simple backup system for Linux inspired from the Flyback project and TimeVault."
 arch=('i686' 'x86_64')
 url="http://backintime.le-web.org/"
@@ -17,11 +17,11 @@ md5sums=('51c27dc10e7e65e8acb888e376abb0f8')
 # Build a custom array of depends based on what DE is installed
 if [ -e '/usr/lib/libkonq.so' ]; then
   # KDE is installed
-  depends=( ${depends[@]} 'xorg-utils' 'pyqt' 'kdebindings-python')
+  depends=( ${depends[@]} xorg-utils pyqt kdebindings-python)
   _type=( ${_type[@]} kde4 )
 fi
 if [ `which gnome-session 2> /dev/null` -o ${#_type[@]} == 0 ]; then
-  depends=( ${depends[@]} 'pygtk' 'python-notify' 'gnome-python' 'meld' )
+  depends=( ${depends[@]} pygtk python-notify gnome-python meld gksu )
   _type=( ${_type[@]} gnome )
 fi
 
