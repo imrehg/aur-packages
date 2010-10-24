@@ -20,7 +20,7 @@ if [ -e '/usr/lib/libkonq.so' ]; then
   depends=( ${depends[@]} xorg-utils pyqt kdebindings-python)
   _type=( ${_type[@]} kde4 )
 fi
-if [ `which gnome-session 2> /dev/null` -o ${#_type[@]} == 0 ]; then
+if [ -n "`which gnome-session 2> /dev/null`" -o ${#_type[@]} == 0 ]; then
   depends=( ${depends[@]} pygtk python-notify gnome-python meld gksu )
   _type=( ${_type[@]} gnome )
 fi
