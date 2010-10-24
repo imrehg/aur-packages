@@ -5,7 +5,7 @@
 
 pkgname=backintime
 pkgver=1.0.2
-pkgrel=3
+pkgrel=4
 pkgdesc="Back In Time is a simple backup system for Linux inspired from the Flyback project and TimeVault."
 arch=('i686' 'x86_64')
 url="http://backintime.le-web.org/"
