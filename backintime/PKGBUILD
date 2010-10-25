@@ -5,7 +5,7 @@
 
 pkgname=backintime
 pkgver=1.0.2
-pkgrel=4
+pkgrel=5
 pkgdesc="Back In Time is a simple backup system for Linux inspired from the Flyback project and TimeVault."
 arch=('i686' 'x86_64')
 url="http://backintime.le-web.org/"
@@ -21,7 +21,7 @@ if [ -e '/usr/lib/libkonq.so' ]; then
   _type=( ${_type[@]} kde4 )
 fi
 if [ -n "`which gnome-session 2> /dev/null`" -o ${#_type[@]} == 0 ]; then
-  depends=( ${depends[@]} pygtk python-notify gnome-python meld gksu )
+  depends=( ${depends[@]} pygtk python-notify gnome-python meld gksu gnome-session )
   _type=( ${_type[@]} gnome )
 fi
 
