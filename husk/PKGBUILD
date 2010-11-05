@@ -1,7 +1,7 @@
 # Maintainer: Phillip Smith <fukawi2@NO-SPAM.gmail.com>
 # http://github.com/fukawi2/aur-packages
 pkgname=husk
-pkgver=0.3
+pkgver=0.3.2
 pkgrel=1
 pkgdesc="An iptables front-end to allow rules to be expressed in a more flexible, free-form style using language."
 arch=('any')
@@ -9,7 +9,7 @@ url="https://sourceforge.net/projects/husk/"
 license=('GPL')
 depends=('perl')
 source=("http://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz")
-md5sums=('f7cceccd135721f888ef2f73713211d9')
+md5sums=('6767792491d7cf25842a21fd4339242d')
 
 build() {
   msg "Nothing to compile for $pkgname"
@@ -17,19 +17,7 @@ build() {
 
 package() {
   cd "$srcdir/$pkgname-$pkgver"
-  
-  install -Dm755 $pkgname.pl $pkgdir/usr/sbin/$pkgname
-
-  # install config
-  for F in husk.conf interfaces.conf rules.conf.example ; do
-    install -Dm755 $F $pkgdir/etc/$pkgname/$F
-  done
-  ln -sf /usr/share/$pkgname-$pkgver/README $pkgdir/etc/$pkgname/README
-
-  # install docs
-  for F in LICENSE README ABOUT ; do
-    install -Dm755 $F $pkgdir/usr/share/$pkgname-$pkgver/$F
-  done
+  make DESTDIR=$pkgdir install
 }
 
 # vim:set ts=2 sw=2 et:
