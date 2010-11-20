@@ -1,15 +1,15 @@
 # Maintainer: Phillip Smith <fukawi2@NO-SPAM.gmail.com>
 # http://github.com/fukawi2/aur-packages
 pkgname=husk
-pkgver=0.4.2
-pkgrel=2
+pkgver=0.5.0
+pkgrel=1
 pkgdesc="An iptables front-end to allow rules to be expressed in a more flexible, free-form style using language."
 arch=('any')
-url="https://sourceforge.net/projects/husk/"
+url="http://sourceforge.net/projects/husk/"
 license=('GPL')
 depends=('perl' 'perl-config-inifiles' 'perl-config-simple')
 source=("http://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz")
-md5sums=('072aad9e7cf73a579a2884e7fa1778b7')
+md5sums=('72f60a0d5fe7e7ecd26f7c9aa2ad0573')
 
 build() {
   msg "Nothing to compile for $pkgname"
