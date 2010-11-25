@@ -2,7 +2,7 @@
 # http://github.com/fukawi2/aur-packages
 pkgname=freshwall
 pkgver=1.1.2
-pkgrel=2
+pkgrel=3
 pkgdesc="Wallpaper rotator for Gnome using files found in ~/.gnome2/backgrounds.xml"
 arch=(any)
 url="http://pypi.python.org/pypi/freshwall/"
@@ -25,6 +25,10 @@ package() {
 	cp bin/* $pkgdir/usr/bin/
 	cp lib/$pkgname/* $pkgdir/usr/lib/python2.6/site-packages/$pkgname/
   
+  msg "Forcing usage of python2"
+  sed -e 's|^#!/usr/bin/env python$|#!/usr/bin/python2|g' \
+    -i $pkgdir/usr/bin/*
+
   msg "Setting permissions..."
 	chmod 755 $pkgdir/usr/bin/*
 }
