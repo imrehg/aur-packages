@@ -15,7 +15,7 @@ backup=('etc/nrpe/nrpe.cfg')
 url="http://www.nagios.org/"
 source=("http://downloads.sourceforge.net/nagios/nrpe-$pkgver.tar.gz" 'rc.nrpe')
 md5sums=('b2d75e2962f1e3151ef58794d60c9e97'
-         '8be4e2d5869cf7866a6a26427b71824d')
+         '417a0d692d79b80bf9e8b2d4a26467f9')
 
 build() {
 	cd $srcdir/nrpe-$pkgver
