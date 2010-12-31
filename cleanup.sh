@@ -35,12 +35,8 @@ for PKG in $PKGS ; do
 	BUILT=`find $AUR_DIR/$PKG -maxdepth 1 -name \*.pkg.tar.gz -o -name \*.src.tar.gz`
 	if [ ! -z "$BUILT" ] ; then
 		#echo -n "   Moving built packages to $PKG/built... "
-		if [ ! -d "$AUR_DIR/$PKG/built" ] ; then
-			mkdir "$AUR_DIR/$PKG/built"
-		fi
-		for F in $BUILT ; do
-			mv $F $AUR_DIR/$PKG/built/
-		done
+		mkdir "$AUR_DIR/$PKG/built" &> /dev/null
+		mv $BUILT $AUR_DIR/$PKG/built/
 		#echo "Done"
 	fi
 
