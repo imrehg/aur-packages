@@ -3,12 +3,15 @@
 AUR_DIR=`dirname $0`
 
 # Get a list of directories (ie, packages) in this directory
-PKGS=`ls -lh $AUR_DIR | grep -E '^d' | awk '{ print $8 }'`
+cd $AUR_DIR
+PKGS=`find ./ -type f -name PKGBUILD`
 
 source /etc/makepkg.conf
 
 # Loop through each package
 for PKG in $PKGS ; do
+	PKG=${PKG%/PKGBUILD}	# Strip the trailing "/PKGBUILD" string
+	PKG=${PKG##*/}			# Strip the leading path "...../"
 	echo "Cleaning up $PKG"
 	
 	#echo "   Inspecting with namcap..."
