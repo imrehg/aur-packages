@@ -8,7 +8,7 @@ pkgdesc="Email client that combines Mozilla's Thunderbird with code, features, a
 arch=('i686')
 license=('GPL')
 depends=('kernel26>=2.2.14' 'glibc>=2.3.2' 'gtk2' 'fontconfig' 'libstdc++5')
-url="https://wiki.mozilla.org/Eudora_OSE"
+url="https://wiki.mozilla.org/Eudora_OSE"
 source=("http://eudora.com/download/eudora/$pkgver/EudoraOSE-$pkgver.en-US.linux-i686.tar.bz2")
 md5sums=('9373a46cc1e64cfafb5c720b6c7ed732')
 
