@@ -3,18 +3,18 @@
 # Contributor: Piotr Beling <qwak@w8.pl>
 
 pkgname=awstats
-pkgver=6.95
-pkgrel=3
+pkgver=7.0
+pkgrel=1
 pkgdesc="tool that generates web, streaming, ftp and mail server statistics, graphically"
 arch=('any')
-license='GPL'
+license=('GPL')
 url="http://awstats.sourceforge.net/"
 depends=('perl')
 optdepends=('mod_perl: if you are using Apache as your HTTP server' 'mod_cgi: if you are using lighttpd as your HTTP server')
 install="awstats.install"
 backup=('etc/awstats/awstats.model.conf' 'etc/httpd/conf/extra/httpd-awstats.conf')
-source=("http://downloads.sourceforge.net/sourceforge/${pkgname}/${pkgname}-${pkgver}.tar.gz" "cron.awstats")
-md5sums=('26a5b19fa9f395e9e7dafed37b795d7f'
+source=("http://downloads.sourceforge.net/${pkgname}/${pkgname}-${pkgver}.tar.gz" "cron.awstats")
+md5sums=('3e8e09b9ebe74513bb34290dbcd37b45'
          '2103e3d97f8b4ff31cd4022c4ee839f7')
 
 build() {

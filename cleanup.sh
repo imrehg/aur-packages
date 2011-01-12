@@ -3,12 +3,15 @@
 AUR_DIR=`dirname $0`
 
 # Get a list of directories (ie, packages) in this directory
-PKGS=`ls -lh $AUR_DIR | grep -E '^d' | awk '{ print $8 }'`
+cd $AUR_DIR
+PKGS=`find ./ -type f -name PKGBUILD`
 
 source /etc/makepkg.conf
 
 # Loop through each package
 for PKG in $PKGS ; do
+	PKG=${PKG%/PKGBUILD}	# Strip the trailing "/PKGBUILD" string
+	PKG=${PKG##*/}			# Strip the leading path "...../"
 	echo "Cleaning up $PKG"
 	
 	#echo "   Inspecting with namcap..."
@@ -32,12 +35,8 @@ for PKG in $PKGS ; do
 	BUILT=`find $AUR_DIR/$PKG -maxdepth 1 -name \*.pkg.tar.gz -o -name \*.src.tar.gz`
 	if [ ! -z "$BUILT" ] ; then
 		#echo -n "   Moving built packages to $PKG/built... "
-		if [ ! -d "$AUR_DIR/$PKG/built" ] ; then
-			mkdir "$AUR_DIR/$PKG/built"
-		fi
-		for F in $BUILT ; do
-			mv $F $AUR_DIR/$PKG/built/
-		done
+		mkdir "$AUR_DIR/$PKG/built" &> /dev/null
+		mv $BUILT $AUR_DIR/$PKG/built/
 		#echo "Done"
 	fi
 
