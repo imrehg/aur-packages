@@ -1,6 +1,6 @@
 # arg 1: the new package version
 post_install() {
-echo \(/usr/local/awstats/docs/index.html\) to setup AWStats in 3 steps:
+echo \(/usr/share/doc/awstats-7.0/index.html\) to setup AWStats in 3 steps:
 echo Step 1 : Install and Setup with awstats_configure.pl
 echo          or add : Include /etc/httpd/conf/extra/httpd-awstats.conf
 echo	      to /etc/httpd/conf/httpd.conf
