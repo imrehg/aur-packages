@@ -2,15 +2,16 @@
 # http://github.com/fukawi2/aur-packages
 
 pkgname=sshfp
-pkgver=1.1.3
-pkgrel=4
+pkgver=1.1.6
+pkgrel=1
 pkgdesc="Generates DNS SSHFP-type records from SSH public keys from public keys from a known_hosts file or from scanning the host's sshd daemon."
 arch=(i686 x86_64)
 license=('GPL')
 depends=('python-dnspython')
 url="http://www.xelerance.com/software/sshfp/"
-source=(http://www.xelerance.com/software/$pkgname/$pkgname-$pkgver.tar.gz)
-md5sums=('c354b2f7d7c910fd75e3f16f05d8007b')
+# NOTE: This is a temporary URL until Xelerance can fix 404 errors on their new site.
+source=("http://oldwww.xelerance.com/software/$pkgname/$pkgname-$pkgver.tar.gz")
+md5sums=('5f39f935e138e623ba77c178b42ecc81')
 
 build() {
   msg "Nothing to compile for $pkgname"
