@@ -10,7 +10,7 @@ license=('GPL')
 depends=('python-dnspython')
 url="http://www.xelerance.com/software/sshfp/"
 # NOTE: This is a temporary URL until Xelerance can fix 404 errors on their new site.
-source=("http://oldwww.xelerance.com/software/$pkgname/$pkgname-$pkgver.tar.gz")
+source=("http://www.xelerance.com/wp-content/uploads/software/$pkgname/$pkgname-$pkgver.tar.gz")
 md5sums=('5f39f935e138e623ba77c178b42ecc81')
 
 build() {
